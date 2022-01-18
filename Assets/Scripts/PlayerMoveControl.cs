@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
 {
 
@@ -22,12 +23,13 @@ public class PlayerMoveControl : MonoBehaviour
     #region недоступные в редакторе публичные поля
 
     [HideInInspector]
-    public Vector3 moveVector;
+    public Vector2 moveVector;
 
     #endregion
 
     #region приватные поля
 
+    private Rigidbody2D rb2D;
     private Transform myTransform;
     private float x, y;
 
@@ -37,8 +39,9 @@ public class PlayerMoveControl : MonoBehaviour
     #region Обработка событий Unity
     void Start()
     {
+        rb2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
-        moveVector = Vector3.zero;
+        moveVector = Vector2.zero;
     }
 
     void Update()
@@ -48,10 +51,8 @@ public class PlayerMoveControl : MonoBehaviour
 
         if(x != 0 || y != 0)
         {
-            //moveVector = Vector2.up * y + Vector2.right * x;
-
-            moveVector = new Vector3(x,y,0);
-            //moveVector.Normalize();
+            moveVector = new Vector2(x,y);
+            moveVector.Normalize();
 
             if (debug)
             {
@@ -62,7 +63,7 @@ public class PlayerMoveControl : MonoBehaviour
             moveVector *= speed;
             moveVector *= Time.deltaTime;
 
-            myTransform.position += moveVector ;
+            rb2D.position += moveVector ;
             myTransform.up = moveVector;
         }
     }

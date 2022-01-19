@@ -8,16 +8,22 @@ public class Bonus : MonoBehaviour
     [Range(1,10)]
     public int score = 1;
 
-    private ScoreHolder holder;
+    public AudioClip bonusClip;
 
-    private void Start()
+    private ScoreHolder holder;
+    private Spawner gameplaySpawner;
+
+    public void PrepareBonus(ScoreHolder scoreHolder, Spawner spawner)
     {
-        holder = FindObjectOfType<ScoreHolder>();
+        holder = scoreHolder;
+        gameplaySpawner = spawner;
     }
 
     public void TakeBonus()
     {
         holder.AddScore(score);
+        gameplaySpawner.source.PlayOneShot(bonusClip);
+        gameplaySpawner.SpawnNextBonus();
         Destroy(gameObject, Time.deltaTime);
     }
 }

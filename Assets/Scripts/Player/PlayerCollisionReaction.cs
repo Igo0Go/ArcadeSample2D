@@ -30,7 +30,11 @@ public class PlayerCollisionReaction : MonoBehaviour
                 default:
                     break;
             }
+        }
 
+        if(collision.CompareTag("Enemies"))
+        {
+            Debug.LogError(" ŒÕ≈÷ »√–€!");
         }
     }
 }

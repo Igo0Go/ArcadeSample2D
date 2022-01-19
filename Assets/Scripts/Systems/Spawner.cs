@@ -7,6 +7,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> bonusesForSpawn;
+    [SerializeField]
+    private List<GameObject> enemiesForSpawn;
 
     [SerializeField]
     private Transform playerStarShip;
@@ -25,12 +27,20 @@ public class Spawner : MonoBehaviour
         source = GetComponent<AudioSource>();
         spawnArea.Prepare();
         SpawnNextBonus();
+        SpawnNextEnemy();
     }
 
     public void SpawnNextBonus()
     {
         Bonus bonus = Instantiate(bonusesForSpawn[Random.Range(0, bonusesForSpawn.Count)], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity).GetComponent<Bonus>();
         bonus.PrepareBonus(scoreHolder, this);
+    }
+
+    public void SpawnNextEnemy()
+    {
+        BaseEnemy enemy = Instantiate(enemiesForSpawn[Random.Range(0, enemiesForSpawn.Count)], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity)
+            .GetComponent<BaseEnemy>();
+        enemy.PrepareEnemy(this, scoreHolder);
     }
 }
 

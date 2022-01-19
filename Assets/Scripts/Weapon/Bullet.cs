@@ -44,11 +44,10 @@ public class Bullet : MonoBehaviour
         hit = Physics2D.Linecast(oldpos, myTransform.position, ~ignoreMask);
         if (hit.collider != null)
         {
-            //if(hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
-            //{
-
-            //}
-
+            if (hit.collider.TryGetComponent<BaseEnemy>(out BaseEnemy enemy))
+            {
+                enemy.Kill();
+            }
 
             Instantiate(decal, hit.point, Quaternion.identity);
 

@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnNextBonus()
     {
-        Bonus bonus = Instantiate(bonusesForSpawn[0], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity).GetComponent<Bonus>();
+        Bonus bonus = Instantiate(bonusesForSpawn[Random.Range(0, bonusesForSpawn.Count)], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity).GetComponent<Bonus>();
         bonus.PrepareBonus(scoreHolder, this);
     }
 }

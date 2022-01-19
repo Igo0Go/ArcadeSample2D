@@ -10,7 +10,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
@@ -45,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 1186959469
+    locked: 0
+  - name: Effects
+    uniqueID: 409327861
     locked: 0
   - name: Gameplay
     uniqueID: 3407189725

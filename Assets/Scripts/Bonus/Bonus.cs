@@ -8,6 +8,8 @@ public class Bonus : MonoBehaviour
     [Range(1,10)]
     public int score = 1;
 
+    public BonusType type;
+
     public AudioClip bonusClip;
 
     private ScoreHolder holder;
@@ -26,4 +28,13 @@ public class Bonus : MonoBehaviour
         gameplaySpawner.SpawnNextBonus();
         Destroy(gameObject, Time.deltaTime);
     }
+}
+
+public enum BonusType
+{
+    ScoreOnly,
+    Shot,
+    Laser,
+    Bomb,
+    Shield
 }

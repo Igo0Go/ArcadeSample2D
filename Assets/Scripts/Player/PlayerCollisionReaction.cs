@@ -9,6 +9,10 @@ public class PlayerCollisionReaction : MonoBehaviour
     private PlayerShot playerShot;
     [SerializeField]
     private PlayerTargetTrackerShot playerTargetTracker;
+    [SerializeField]
+    private PlayerLaser playerLaser;
+    [SerializeField]
+    private PlayerShield playerShield;
 
     [SerializeField]
     private GameObject explosionDecal;
@@ -31,17 +35,17 @@ public class PlayerCollisionReaction : MonoBehaviour
                     playerTargetTracker.AddBullets();
                     break;
                 case BonusType.Laser:
-                    break;
-                case BonusType.Bomb:
+                    playerLaser.AddPower();
                     break;
                 case BonusType.Shield:
+                    playerShield.ShowShield();
                     break;
                 default:
                     break;
             }
         }
 
-        if(collision.CompareTag("Enemies"))
+        if(collision.CompareTag("Enemies") && !playerShield.active)
         {
             BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
             enemy.FindPlayer();

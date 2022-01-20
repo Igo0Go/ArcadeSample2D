@@ -26,7 +26,7 @@ public class Bonus : MonoBehaviour
         holder.AddScore(score);
         gameplaySpawner.source.PlayOneShot(bonusClip);
         gameplaySpawner.SpawnNextBonus();
-        Destroy(gameObject, Time.deltaTime);
+        Destroy(gameObject);
     }
 }
 
@@ -36,6 +36,5 @@ public enum BonusType
     Shot,
     TargetTracker,
     Laser,
-    Bomb,
     Shield
 }

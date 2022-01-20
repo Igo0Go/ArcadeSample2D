@@ -22,6 +22,11 @@ public class Spawner : MonoBehaviour
     [HideInInspector]
     public AudioSource source;
 
+    public void PlaySound(AudioClip clip)
+    {
+        source.PlayOneShot(clip);
+    }
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -67,27 +72,32 @@ public class SpawnArea
 
     public Vector2 GetSpawnPointByPlayerPoint (Vector3 playerPoint)
     {
-        Vector2 position = leftDown.position;
-        Vector2 size = new Vector2(width/2,height/2);
-
-        if(playerPoint.x < centerPoint.x)
+        Vector2 resultSpawnPoint;
+        do
         {
-            position.x = centerPoint.x;
+            Vector2 position = leftDown.position;
+            Vector2 size = new Vector2(width / 2, height / 2);
+
+            if (playerPoint.x < centerPoint.x)
+            {
+                position.x = centerPoint.x;
+            }
+
+            if (playerPoint.y < centerPoint.y)
+            {
+                position.y = centerPoint.y;
+            }
+
+
+            Rect spawnZone = new Rect(position, size);
+
+            resultSpawnPoint = new Vector2
+            {
+                x = Random.Range(spawnZone.x, spawnZone.x + spawnZone.width),
+                y = Random.Range(spawnZone.y, spawnZone.y + spawnZone.height)
+            };
         }
-
-        if (playerPoint.y < centerPoint.y)
-        {
-            position.y = centerPoint.y;
-        }
-
-
-        Rect spawnZone = new Rect(position, size);
-
-        Vector2 resultSpawnPoint = new Vector2
-        {
-            x = Random.Range(spawnZone.x, spawnZone.x + spawnZone.width),
-            y = Random.Range(spawnZone.y, spawnZone.y + spawnZone.height)
-        };
+        while (Vector3.Distance(playerPoint, resultSpawnPoint) < 2f);
 
         return resultSpawnPoint;
     }

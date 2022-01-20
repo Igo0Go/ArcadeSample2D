@@ -18,7 +18,7 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField]
     private GameObject decal;
 
-    public void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
+    public virtual void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
     {
         this.spawner = spawner;
         this.scoreHolder = scoreHolder;

@@ -10,8 +10,7 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private List<GameObject> enemiesForSpawn;
 
-    [SerializeField]
-    private Transform playerStarShip;
+    public Transform playerStarShip;
 
     [SerializeField]
     private ScoreHolder scoreHolder;

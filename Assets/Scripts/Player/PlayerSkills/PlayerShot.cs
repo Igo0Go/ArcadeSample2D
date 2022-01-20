@@ -82,15 +82,6 @@ public class PlayerShot : MonoBehaviour
         }
     }
 
-    private IEnumerator ShotCorroutine(Transform ShootPoint)
-    {
-        while(currentShotCount > 0)
-        {
-            
-            yield return new WaitForSeconds(shotDelay);
-        }
-    }
-
     private void SpawnBullet(Transform origin)
     {
         currentShotCount--;

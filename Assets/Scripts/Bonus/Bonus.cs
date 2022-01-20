@@ -34,6 +34,7 @@ public enum BonusType
 {
     ScoreOnly,
     Shot,
+    TargetTracker,
     Laser,
     Bomb,
     Shield

@@ -7,6 +7,12 @@ public class PlayerCollisionReaction : MonoBehaviour
 {
     [SerializeField]
     private PlayerShot playerShot;
+    [SerializeField]
+    private PlayerTargetTrackerShot playerTargetTracker;
+
+    [SerializeField]
+    private GameObject explosionDecal;
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,6 +26,9 @@ public class PlayerCollisionReaction : MonoBehaviour
                     break;
                 case BonusType.Shot:
                     playerShot.AddBullets();
+                    break;
+                case BonusType.TargetTracker:
+                    playerTargetTracker.AddBullets();
                     break;
                 case BonusType.Laser:
                     break;
@@ -36,6 +45,10 @@ public class PlayerCollisionReaction : MonoBehaviour
         {
             BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
             enemy.FindPlayer();
+
+            Instantiate(explosionDecal, transform.position, Quaternion.identity);
+
+            Destroy(gameObject, Time.deltaTime);
         }
     }
 }

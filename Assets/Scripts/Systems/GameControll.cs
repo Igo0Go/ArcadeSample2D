@@ -15,6 +15,9 @@ public class GameControll : MonoBehaviour
     [SerializeField]
     private GameObject deadPanel;
 
+    [SerializeField]
+    private AudioSource deadAudioSource;
+
     private void Awake()
     {
         deadPanel.SetActive(false);
@@ -29,9 +32,9 @@ public class GameControll : MonoBehaviour
 
     public void ShowDeadPanel(int score)
     {
+        deadAudioSource.Play();
         scoreText.text = score.ToString();
         deadPanel.SetActive(true);
-        Time.timeScale = 0;
     }
 
     private void PausePanelToggle()

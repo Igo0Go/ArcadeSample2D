@@ -14,16 +14,23 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject decal;
 
-    private Transform myTransform;
+    protected Vector3 bulletDirection;
+    protected Transform myTransform;
+
     private Vector3 oldpos;
-    private ContactFilter2D filter2D;
     RaycastHit2D hit;
 
     private void Start()
     {
+        OnStart();
+    }
+
+    protected void OnStart()
+    {
         myTransform = transform;
         oldpos = myTransform.position;
         Destroy(gameObject, 5);
+        bulletDirection = myTransform.up;
     }
 
     void Update()
@@ -32,10 +39,10 @@ public class Bullet : MonoBehaviour
     }
 
 
-    private void MoveBullet()
+    protected void MoveBullet()
     {
         oldpos = myTransform.position;
-        myTransform.position += myTransform.up * bulletSpeed * Time.deltaTime;
+        myTransform.position += bulletDirection * bulletSpeed * Time.deltaTime;
         CheckCollision();
     }
 

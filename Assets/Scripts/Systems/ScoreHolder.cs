@@ -8,6 +8,9 @@ public class ScoreHolder : MonoBehaviour
     [SerializeField]
     private Text scoreText;
 
+    [SerializeField]
+    private GameControll gameControll;
+
     private int currentScore = 0;
 
     private void Awake()
@@ -19,5 +22,10 @@ public class ScoreHolder : MonoBehaviour
     {
         currentScore += score;
         scoreText.text = currentScore.ToString();
+    }
+
+    public void PrepareScoreForDeadPanel()
+    {
+        gameControll.ShowDeadPanel(currentScore);
     }
 }

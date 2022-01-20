@@ -27,4 +27,9 @@ public class BaseEnemy : MonoBehaviour
         Instantiate(decal, transform.position, Quaternion.identity);
         Destroy(gameObject, Time.deltaTime);
     }
+
+    public void FindPlayer()
+    {
+        scoreHolder.PrepareScoreForDeadPanel();
+    }
 }

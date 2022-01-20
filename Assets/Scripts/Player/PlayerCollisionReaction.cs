@@ -34,7 +34,8 @@ public class PlayerCollisionReaction : MonoBehaviour
 
         if(collision.CompareTag("Enemies"))
         {
-            Debug.LogError(" ŒÕ≈÷ »√–€!");
+            BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
+            enemy.FindPlayer();
         }
     }
 }

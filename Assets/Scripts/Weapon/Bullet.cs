@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
         hit = Physics2D.Linecast(oldpos, myTransform.position, ~ignoreMask);
         if (hit.collider != null)
         {
-            if (hit.collider.TryGetComponent<BaseEnemy>(out BaseEnemy enemy))
+            if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
                 enemy.Kill();
             }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1655339308398325603}
   - component: {fileID: 1655339308398325600}
   - component: {fileID: 1655339308398325601}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SmartEnemy
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1655339309541455638}
   - component: {fileID: 1655339309541455641}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Alien 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

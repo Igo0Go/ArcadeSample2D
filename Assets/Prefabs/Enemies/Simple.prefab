@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8486237044453451538}
   - component: {fileID: 8486237044453451539}
   - component: {fileID: 8486237044453451537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Simple
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8486237045380050469}
   - component: {fileID: 8486237045380050468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fighter 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

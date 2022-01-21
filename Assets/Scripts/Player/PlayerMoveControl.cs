@@ -65,14 +65,8 @@ public class PlayerMoveControl : MonoBehaviour
 
             rb2D.position += moveVector;
 //            myTransform.up = moveVector;
-            myTransform.up = Vector3.Lerp(myTransform.up, moveVector, 0.9f);
+            myTransform.up = Vector3.Lerp(myTransform.up, moveVector, 0.8f);
         }
     }
-    #endregion
-
-    #region Вспомогательные приватные методы
-
-
-
     #endregion
 }

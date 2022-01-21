@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4385513062142543757}
   - component: {fileID: 4385513062142543754}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Turret Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4385513063365913691}
   - component: {fileID: 4385513063365913688}
   - component: {fileID: 4204385619089682843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TestEnemy
   m_TagString: Enemies
   m_Icon: {fileID: 0}

@@ -63,8 +63,9 @@ public class PlayerMoveControl : MonoBehaviour
             moveVector *= speed;
             moveVector *= Time.deltaTime;
 
-            rb2D.position += moveVector ;
-            myTransform.up = moveVector;
+            rb2D.position += moveVector;
+//            myTransform.up = moveVector;
+            myTransform.up = Vector3.Lerp(myTransform.up, moveVector, 0.9f);
         }
     }
     #endregion

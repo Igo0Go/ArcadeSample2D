@@ -520,16 +520,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bonusesForSpawn:
-  - {fileID: 2465245343043472235, guid: 85cdf358ed817364bb6913efd957c0e9, type: 3}
-  - {fileID: 8883738894987318927, guid: 5dca77816d8ae1b49bee62b20346a4f6, type: 3}
-  - {fileID: 4005484898789837108, guid: dd908ac77503a004dbc4961515948bae, type: 3}
-  - {fileID: 2165273755705767343, guid: 066cb78694399384698dd7b0e2e28e43, type: 3}
-  - {fileID: 3936072034390369502, guid: 2e37e6d06d6e82742af6a72bafa3131c, type: 3}
+  - weight: 30
+    spawnOhbject: {fileID: 2465245343043472235, guid: 85cdf358ed817364bb6913efd957c0e9, type: 3}
+  - weight: 25
+    spawnOhbject: {fileID: 8883738894987318927, guid: 5dca77816d8ae1b49bee62b20346a4f6, type: 3}
+  - weight: 20
+    spawnOhbject: {fileID: 4005484898789837108, guid: dd908ac77503a004dbc4961515948bae, type: 3}
+  - weight: 15
+    spawnOhbject: {fileID: 2165273755705767343, guid: 066cb78694399384698dd7b0e2e28e43, type: 3}
+  - weight: 10
+    spawnOhbject: {fileID: 3936072034390369502, guid: 2e37e6d06d6e82742af6a72bafa3131c, type: 3}
   enemiesForSpawn:
-  - {fileID: 4385513063365913693, guid: dd577e20d969a8a489f4c3f798878f23, type: 3}
-  - {fileID: 8486237044453451533, guid: cdf7642f2ab23be469d5d0954ea8e1c8, type: 3}
-  - {fileID: 1655339308398325599, guid: ed79ce362b63e35418ab8d285db2b285, type: 3}
-  - {fileID: 2704466533189692325, guid: 8972e77e226421f4b9cdf81afdcb991f, type: 3}
+  - weight: 40
+    spawnOhbject: {fileID: 4385513063365913693, guid: dd577e20d969a8a489f4c3f798878f23, type: 3}
+  - weight: 30
+    spawnOhbject: {fileID: 8486237044453451533, guid: cdf7642f2ab23be469d5d0954ea8e1c8, type: 3}
+  - weight: 20
+    spawnOhbject: {fileID: 1655339308398325599, guid: ed79ce362b63e35418ab8d285db2b285, type: 3}
+  - weight: 10
+    spawnOhbject: {fileID: 2704466533189692325, guid: 8972e77e226421f4b9cdf81afdcb991f, type: 3}
   playerStarShip: {fileID: 791755770}
   scoreHolder: {fileID: 776749675}
   spawnArea:
@@ -538,6 +547,9 @@ MonoBehaviour:
     RightTop: {fileID: 1589775184}
     RightDown: {fileID: 1746812026}
   source: {fileID: 0}
+  bonusesContainer: {fileID: 0}
+  enemiesContainer: {fileID: 0}
+  debug: 0
 --- !u!82 &313799498
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1292,7 +1304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc367ddba8c07742b4fd62b3970f74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldTime: 3
+  shieldTime: 7
   spriteRenderer: {fileID: 778239941}
   active: 0
 --- !u!1 &753771169

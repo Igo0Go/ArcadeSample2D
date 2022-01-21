@@ -6,9 +6,9 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> bonusesForSpawn;
+    private List<SpawnItem> bonusesForSpawn;
     [SerializeField]
-    private List<GameObject> enemiesForSpawn;
+    private List<SpawnItem> enemiesForSpawn;
 
     public Transform playerStarShip;
 
@@ -21,6 +21,18 @@ public class Spawner : MonoBehaviour
     [HideInInspector]
     public AudioSource source;
 
+    [SerializeField]
+    private Transform bonusesContainer;
+
+    [SerializeField]
+    private Transform enemiesContainer;
+
+    [SerializeField]
+    private bool debug;
+
+    private int totalBonusWeight;
+    private int totalEnemyWeight;
+
     public void PlaySound(AudioClip clip)
     {
         source.PlayOneShot(clip);
@@ -32,19 +44,75 @@ public class Spawner : MonoBehaviour
         spawnArea.Prepare();
         SpawnNextBonus();
         SpawnNextEnemy();
+
+        foreach (var item in bonusesForSpawn)
+        {
+            totalBonusWeight += item.weight;
+        }
+        foreach (var item in enemiesForSpawn)
+        {
+            totalEnemyWeight += item.weight;
+        }
     }
 
     public void SpawnNextBonus()
     {
-        Bonus bonus = Instantiate(bonusesForSpawn[Random.Range(0, bonusesForSpawn.Count)], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity).GetComponent<Bonus>();
+        Bonus bonus = Instantiate(GetRandomObject(bonusesForSpawn,  totalBonusWeight),
+            spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
+            Quaternion.identity,
+            bonusesContainer).GetComponent<Bonus>();
         bonus.PrepareBonus(scoreHolder, this);
     }
 
     public void SpawnNextEnemy()
     {
-        BaseEnemy enemy = Instantiate(enemiesForSpawn[Random.Range(0, enemiesForSpawn.Count)], spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position), Quaternion.identity)
-            .GetComponent<BaseEnemy>();
+        BaseEnemy enemy = Instantiate(GetRandomObject(enemiesForSpawn, totalEnemyWeight),
+            spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
+            Quaternion.identity,
+            enemiesContainer).GetComponent<BaseEnemy>();
         enemy.PrepareEnemy(this, scoreHolder);
+    }
+
+    [ContextMenu("Тесттовый спавн бонусов")]
+    public void TestSpawn()
+    {
+        StartCoroutine(TestSpawnCoroutine());
+    }
+
+
+
+    public GameObject GetRandomObject(List<SpawnItem> items, int totalweight)
+    {
+        int bufer = Random.Range(0, totalweight);
+        int currentThreshold = 0;
+
+        foreach (var item in items)
+        {
+            currentThreshold += item.weight;
+            if (currentThreshold > bufer)
+            {
+                if(debug)
+                {
+                    Debug.Log(item.spawnOhbject);
+                }
+                return item.spawnOhbject;
+            }
+        }
+        if (debug)
+        {
+            Debug.Log(items[0].spawnOhbject);
+        }
+        return items[0].spawnOhbject;
+
+    }
+
+    private IEnumerator TestSpawnCoroutine()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            SpawnNextBonus();
+            yield return null;
+        }
     }
 }
 
@@ -100,4 +168,13 @@ public class SpawnArea
 
         return resultSpawnPoint;
     }
+}
+
+[System.Serializable]
+public class SpawnItem
+{
+    [Min(1)]
+    public int weight = 1;
+
+    public GameObject spawnOhbject;
 }

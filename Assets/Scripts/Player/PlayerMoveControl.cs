@@ -33,6 +33,8 @@ public class PlayerMoveControl : MonoBehaviour
     private Transform myTransform;
     private float x, y;
 
+    Vector3 debugVector;
+
     #endregion
 
 
@@ -54,6 +56,8 @@ public class PlayerMoveControl : MonoBehaviour
             moveVector = new Vector2(x,y);
             moveVector.Normalize();
 
+            debugVector = moveVector;
+
             if (debug)
             {
                 Debug.Log("Текуший вектор движения игрока: " + moveVector + ". Его длина: " + moveVector.magnitude);
@@ -67,6 +71,29 @@ public class PlayerMoveControl : MonoBehaviour
 //            myTransform.up = moveVector;
             myTransform.up = Vector3.Lerp(myTransform.up, moveVector, 0.8f);
         }
+        else
+        {
+            debugVector = Vector3.zero;
+        }
     }
     #endregion
+
+
+    private void OnDrawGizmos()
+    {
+        if(debug)
+        {
+            Gizmos.color = Color.white;
+            Gizmos.DrawWireSphere(transform.position, 1);
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, Vector3.up * debugVector.y);
+            Gizmos.DrawSphere(transform.position + Vector3.up * debugVector.y, 0.1f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, Vector3.right * debugVector.x);
+            Gizmos.DrawSphere(transform.position + Vector3.right * debugVector.x, 0.1f);
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawRay(transform.position, moveVector);
+            Gizmos.DrawSphere(transform.position + debugVector, 0.1f);
+        }
+    }
 }

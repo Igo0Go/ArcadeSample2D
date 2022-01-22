@@ -78,6 +78,7 @@ MonoBehaviour:
     m_Bits: 76
   attackPrepareTime: 1
   attackSygnalTime: 0.5
+  debug: 1
 --- !u!70 &2704466533189692379
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

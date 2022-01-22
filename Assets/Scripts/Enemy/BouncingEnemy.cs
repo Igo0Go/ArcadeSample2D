@@ -21,6 +21,9 @@ public class BouncingEnemy : BaseEnemy
     [Range(0.1f, 1)]
     private float attackSygnalTime = 1;
 
+    [SerializeField]
+    private bool debug;
+
     protected Transform player;
     protected Transform myTransform;
     protected Rigidbody2D rb;
@@ -29,7 +32,8 @@ public class BouncingEnemy : BaseEnemy
     private RaycastHit2D hit2D;
     private float currentSpeed;
     private const float stopSpeed = 1.5f;
-
+    Vector3 debugVector;
+    Vector3 debugtargetPos;
 
     public override void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
     {
@@ -50,12 +54,18 @@ public class BouncingEnemy : BaseEnemy
             while (t > 0)
             {
                 t -= Time.deltaTime;
-                moveVector = (player.position - myTransform.position).normalized;
+                moveVector = (player.position - myTransform.position);
+                debugVector = moveVector;
+                moveVector.Normalize();
                 myTransform.up = moveVector;
+                debugtargetPos = player.position;
                 yield return null;
             }
             attackSygnal.SetActive(true);
             currentSpeed = attackSpeed;
+
+            debugVector = debugVector.normalized * currentSpeed;
+
             yield return new WaitForSeconds(attackSygnalTime);
 
             while(currentSpeed > stopSpeed)
@@ -68,10 +78,28 @@ public class BouncingEnemy : BaseEnemy
                 {
                     currentSpeed /= 2;
                     moveVector = Vector2.Reflect(moveVector, hit2D.normal);
+                    debugVector = moveVector.normalized * currentSpeed;
                     myTransform.up = moveVector;
                 }
                 yield return null;
             }
+
+            currentSpeed = 0;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debug && player != null)
+        {
+            Gizmos.color = Color.red;
+
+            if(currentSpeed > 0)
+            {
+                Gizmos.DrawSphere(transform.position + debugVector.normalized * stopSpeed, 0.2f);
+            }
+            Gizmos.DrawLine(transform.position, transform.position + debugVector);
+            Gizmos.DrawWireSphere(debugtargetPos, 0.5f);
         }
     }
 }

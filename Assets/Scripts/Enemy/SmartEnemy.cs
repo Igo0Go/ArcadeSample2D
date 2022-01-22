@@ -8,9 +8,14 @@ public class SmartEnemy : BaseEnemy
     [Range(1, 5)]
     private float speed = 2;
 
+    [SerializeField]
+    private bool debug;
+
     protected Transform player;
     protected Transform myTransform;
     protected Rigidbody2D rb;
+
+    private Vector3 target;
 
     public override void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
     {
@@ -26,7 +31,7 @@ public class SmartEnemy : BaseEnemy
         while (player != null)
         {
             float distance = Vector3.Distance(player.position, myTransform.position);
-            Vector3 target = distance > 5? player.position + player.up * 5 : player.position + player.up * distance;
+            target = distance > 5? player.position + player.up * 5 : player.position + player.up * distance;
 
             if(Vector3.Distance(myTransform.position, target) < 1.5)
             {
@@ -37,6 +42,16 @@ public class SmartEnemy : BaseEnemy
             myTransform.up = direction;
             rb.position += direction * speed * Time.deltaTime;
             yield return null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (debug && player != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(player.position, target);
+            Gizmos.DrawWireSphere(target, 0.5f);
         }
     }
 }

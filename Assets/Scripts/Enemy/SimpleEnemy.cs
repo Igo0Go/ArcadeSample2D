@@ -8,6 +8,9 @@ public class SimpleEnemy : BaseEnemy
     [Range(1,5)]
     private float speed = 2;
 
+    [SerializeField]
+    private bool debug;
+
     protected Transform player;
     protected Transform myTransform;
     protected Rigidbody2D rb;
@@ -29,6 +32,15 @@ public class SimpleEnemy : BaseEnemy
             myTransform.up = direction;
             rb.position += direction * speed * Time.deltaTime;
             yield return null;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(debug && player != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(player.position, 0.5f);   
         }
     }
 }

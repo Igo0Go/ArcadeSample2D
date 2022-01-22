@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerShot))]
+[RequireComponent(typeof(PlayerTargetTrackerShot))]
+[RequireComponent(typeof(PlayerLaser))]
+[RequireComponent(typeof(PlayerShield))]
 public class PlayerCollisionReaction : MonoBehaviour
 {
-    [SerializeField]
     private PlayerShot playerShot;
-    [SerializeField]
     private PlayerTargetTrackerShot playerTargetTracker;
-    [SerializeField]
     private PlayerLaser playerLaser;
-    [SerializeField]
     private PlayerShield playerShield;
 
     [SerializeField]
     private GameObject explosionDecal;
+
+    private void Start()
+    {
+        playerShot = GetComponent<PlayerShot>();
+        playerTargetTracker = GetComponent<PlayerTargetTrackerShot>();
+        playerLaser = GetComponent<PlayerLaser>();
+        playerShield = GetComponent<PlayerShield>();
+    }
 
 
     private void OnTriggerEnter2D(Collider2D collision)

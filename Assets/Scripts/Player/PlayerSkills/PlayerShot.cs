@@ -50,13 +50,13 @@ public class PlayerShot : MonoBehaviour
     {
         if(currentShotCount > 0)
         {
-            if (Input.GetButton("Fire1") && leftDelay == 0)
+            if (Input.GetButton("LeftShot") && leftDelay == 0)
             {
                 SpawnBullet(leftShootPoint);
                 leftDelay = shotDelay;
             }
 
-            if (Input.GetButton("Fire2") && rightDelay == 0)
+            if (Input.GetButton("RightShot") && rightDelay == 0)
             {
                 SpawnBullet(rightShootPoint);
                 rightDelay = shotDelay;

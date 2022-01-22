@@ -23,7 +23,6 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     private AudioSource source;
 
-
     public void AddBullets()
     {
         currentShotCount = maxShotCount;
@@ -37,7 +36,7 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire3") && currentShotCount > 0)
+        if (Input.GetButtonDown("TargetTrackerShot") && currentShotCount > 0)
         {
             SpawnBullet(transform);
         }

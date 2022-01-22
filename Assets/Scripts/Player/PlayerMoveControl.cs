@@ -56,20 +56,17 @@ public class PlayerMoveControl : MonoBehaviour
             moveVector = new Vector2(x,y);
             moveVector.Normalize();
 
-            debugVector = moveVector;
-
             if (debug)
             {
-                Debug.Log("Текуший вектор движения игрока: " + moveVector + ". Его длина: " + moveVector.magnitude);
+                debugVector = moveVector;
+                Debug.Log("Текуший вектор движения игрока: " + debugVector + ". Его длина: " + debugVector.magnitude);
             }
-
 
             moveVector *= speed;
             moveVector *= Time.deltaTime;
 
             rb2D.position += moveVector;
-//            myTransform.up = moveVector;
-            myTransform.up = Vector3.Lerp(myTransform.up, moveVector, 0.8f);
+            myTransform.up = moveVector;
         }
         else
         {

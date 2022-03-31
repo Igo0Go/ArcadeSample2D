@@ -60,7 +60,7 @@ public class PlayerCollisionReaction : MonoBehaviour
 
             Instantiate(explosionDecal, transform.position, Quaternion.identity);
 
-            Destroy(gameObject, Time.deltaTime);
+            Destroy(gameObject, Time.fixedDeltaTime);
         }
     }
 }

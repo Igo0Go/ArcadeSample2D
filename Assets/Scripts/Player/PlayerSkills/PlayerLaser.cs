@@ -57,7 +57,7 @@ public class PlayerLaser : MonoBehaviour
             {
                 enemy.Kill();
             }
-            laserEnergyValue.value -= Time.deltaTime;
+            laserEnergyValue.value -= GameTime.DeltaTime;
             targetPoint.position = hit.point;
             Instantiate(decal, hit.point, Quaternion.identity);
         }

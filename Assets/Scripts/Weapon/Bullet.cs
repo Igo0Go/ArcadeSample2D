@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
         while(true)
         {
             oldpos = myTransform.position;
-            myTransform.position += bulletDirection * bulletSpeed * Time.deltaTime;
+            myTransform.position += bulletDirection * bulletSpeed * GameTime.DeltaTime;
             CheckCollision();
             yield return null;
         }

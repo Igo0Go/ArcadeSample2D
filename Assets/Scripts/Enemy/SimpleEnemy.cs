@@ -30,7 +30,7 @@ public class SimpleEnemy : BaseEnemy
         {
             Vector2 direction = (player.position - myTransform.position).normalized;
             myTransform.up = direction;
-            rb.position += direction * speed * Time.deltaTime;
+            rb.position += direction * speed * GameTime.DeltaTime;
             yield return null;
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,11 +16,14 @@ public class GameControll : MonoBehaviour
     [SerializeField]
     private AudioSource deadAudioSource;
 
+    [SerializeField]
+    private AudioSource musicAudioSource;
+
     private void Awake()
     {
         deadPanel.SetActive(false);
         pausePanel.SetActive(false);
-        Time.timeScale = 1;
+        GameTime.Pause = false;
     }
 
     private void Update()
@@ -44,12 +45,14 @@ public class GameControll : MonoBehaviour
             if(pausePanel.activeSelf)
             {
                 pausePanel.SetActive(false);
-                Time.timeScale = 1;
+                musicAudioSource.UnPause();
+                GameTime.Pause = false;
             }
             else
             {
                 pausePanel.SetActive(true);
-                Time.timeScale = 0;
+                musicAudioSource.Pause();
+                GameTime.Pause = true;
             }
         }
     }

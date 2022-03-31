@@ -602,6 +602,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1612928477159776142, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.29800415
+      objectReference: {fileID: 0}
     - target: {fileID: 1612928477509011270, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -609,6 +613,14 @@ PrefabInstance:
     - target: {fileID: 1612928477509011270, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612928477679100188, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612928477679510097, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1612928478042895536, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_SizeDelta.x
@@ -630,6 +642,18 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1612928478409824161, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.29800415
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612928478561594560, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612928478648376130, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: musicAudioSource
+      value: 
+      objectReference: {fileID: 1680984772}
     - target: {fileID: 1612928478648376131, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -889,6 +913,10 @@ PrefabInstance:
       propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6788050959967119417, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: useInertion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6788050959967119418, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -932,6 +960,10 @@ PrefabInstance:
     - target: {fileID: 6788050959967119418, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788050959967119420, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}

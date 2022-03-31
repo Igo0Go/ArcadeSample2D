@@ -53,7 +53,7 @@ public class BouncingEnemy : BaseEnemy
 
             while (t > 0)
             {
-                t -= Time.deltaTime;
+                t -= GameTime.DeltaTime;
                 moveVector = (player.position - myTransform.position);
                 debugVector = moveVector;
                 moveVector.Normalize();
@@ -70,7 +70,7 @@ public class BouncingEnemy : BaseEnemy
 
             while(currentSpeed > stopSpeed)
             {
-                rb.position += moveVector * currentSpeed * Time.deltaTime;
+                rb.position += moveVector * currentSpeed * GameTime.DeltaTime;
 
                 hit2D = Physics2D.Raycast(myTransform.position, moveVector, 0.4f, ~ignoreMask);
 

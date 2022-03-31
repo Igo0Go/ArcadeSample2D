@@ -44,29 +44,36 @@ public class PlayerMoveControl : MonoBehaviour
 
     #endregion
 
-
     #region Обработка событий Unity
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
         moveVector = Vector2.zero;
+        useInertion = true;
     }
 
     void Update()
     {
+        Move();
+        ChangeControl();
+    }
+    #endregion
+
+    private void Move()
+    {
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
-        if(x != 0 || y != 0)
+        if (x != 0 || y != 0)
         {
-            moveVector = new Vector2(x,y);
+            moveVector = new Vector2(x, y);
             moveVector.Normalize();
 
             if (debug)
             {
                 debugVector = moveVector;
-                Debug.Log("Текуший вектор движения игрока: " + debugVector + 
+                Debug.Log("Текуший вектор движения игрока: " + debugVector +
                     ". Его длина: " + debugVector.magnitude);
             }
 
@@ -89,8 +96,17 @@ public class PlayerMoveControl : MonoBehaviour
             debugVector = Vector3.zero;
         }
     }
-    #endregion
-
+    private void ChangeControl()
+    {
+        if(Input.GetButtonDown("ChangeControl"))
+        {
+            useInertion = !useInertion;
+            if(!useInertion)
+            {
+                rb2D.velocity = Vector3.zero;
+            }
+        }
+    }
 
     private void OnDrawGizmos()
     {

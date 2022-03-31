@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 5
   destroySound: {fileID: 8300000, guid: 7b69beceabbd8f24e8bc62d77ac7ca1c, type: 3}
-  decal: {fileID: 3745808075164851820, guid: 00e14132bf9f92b449b1e120ab9439c4, type: 3}
+  decal: {fileID: 3745808075164851820, guid: de645c0ee0b6d234fa2386d30b11313f, type: 3}
 --- !u!50 &4204385619089682843
 Rigidbody2D:
   serializedVersion: 4

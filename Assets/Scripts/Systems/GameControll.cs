@@ -31,6 +31,8 @@ public class GameControll : MonoBehaviour
         deadPanel.SetActive(false);
         pausePanel.SetActive(false);
         GameTime.Pause = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -44,6 +46,8 @@ public class GameControll : MonoBehaviour
         scoreText.text = score.ToString();
         deadPanel.SetActive(true);
         SetSelectedUI(startDeadPanelSelectedObject);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void PausePanelToggle()
@@ -55,6 +59,8 @@ public class GameControll : MonoBehaviour
                 pausePanel.SetActive(false);
                 musicAudioSource.UnPause();
                 GameTime.Pause = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             else
             {
@@ -62,6 +68,8 @@ public class GameControll : MonoBehaviour
                 SetSelectedUI(startPausePanelSelectedObject);
                 musicAudioSource.Pause();
                 GameTime.Pause = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }

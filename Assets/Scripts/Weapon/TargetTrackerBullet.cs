@@ -33,6 +33,8 @@ public class TargetTrackerBullet : Bullet
                             distance = Vector3.Distance(target.position, target.position);
                         }
                     }
+                    myTransform.position += bulletDirection * bulletSpeed * Time.deltaTime;
+                    CheckCollision();
                     yield return null;
                 }
             }

@@ -103,7 +103,7 @@ public class PlayerMoveControl : MonoBehaviour
             useInertion = !useInertion;
             if(!useInertion)
             {
-                rb2D.velocity = Vector3.zero;
+                rb2D.velocity = moveVector;
             }
         }
     }

@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     {
         myTransform = transform;
         oldpos = myTransform.position;
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 10);
         bulletDirection = myTransform.up;
         StartCoroutine(MoveBulletCoroutine());
     }

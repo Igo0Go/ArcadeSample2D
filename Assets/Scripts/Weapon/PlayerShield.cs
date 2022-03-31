@@ -11,14 +11,25 @@ public class PlayerShield : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField]
+    private SpriteRenderer littleShield;
+
     [HideInInspector]
     public bool active;
+
+    [HideInInspector]
+    public bool danger;
+
+    [SerializeField]
+    [Range(1, 4)]
+    private float rbVelocityLenghtForShieldActivation = 2.5f;
 
     private float currentShield;
 
     private void Start()
     {
         spriteRenderer.gameObject.SetActive(false);
+        GetComponent<PlayerMoveControl>().rbVelocityChanged.AddListener(CheckVelocityValue);
     }
 
     public void ShowShield()
@@ -56,5 +67,17 @@ public class PlayerShield : MonoBehaviour
         yield return new WaitForSeconds(1);
         active = false;
         spriteRenderer.gameObject.SetActive(false);
+    }
+
+    private void CheckVelocityValue(float value)
+    {
+        danger = value > rbVelocityLenghtForShieldActivation;
+        littleShield.gameObject.SetActive(danger);
+
+        if (danger)
+        {
+            float alpha = Mathf.Clamp01((value - rbVelocityLenghtForShieldActivation)/(rbVelocityLenghtForShieldActivation));
+            littleShield.color = new Color(littleShield.color.r, littleShield.color.g, littleShield.color.b, alpha);
+        }
     }
 }

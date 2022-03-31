@@ -53,7 +53,7 @@ public class PlayerCollisionReaction : MonoBehaviour
             }
         }
 
-        if(collision.CompareTag("Enemies") && !playerShield.active)
+        if(collision.CompareTag("Enemies") && !playerShield.active && !playerShield.danger)
         {
             BaseEnemy enemy = collision.GetComponent<BaseEnemy>();
             enemy.FindPlayer();

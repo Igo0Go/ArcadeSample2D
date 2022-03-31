@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
 {
-
     #region Доступные в редакторе поля
 
     [SerializeField]                                            //Отрисовать в редакторе
@@ -30,6 +30,8 @@ public class PlayerMoveControl : MonoBehaviour
 
     [HideInInspector]
     public Vector2 moveVector;
+
+    public UnityEvent<float> rbVelocityChanged = new UnityEvent<float>();
 
     #endregion
 
@@ -83,6 +85,7 @@ public class PlayerMoveControl : MonoBehaviour
             if (useInertion)
             {
                 rb2D.AddForce(moveVector * inertionMultiplicator);
+                rbVelocityChanged?.Invoke(rb2D.velocity.magnitude);
             }
             else
             {
@@ -101,9 +104,13 @@ public class PlayerMoveControl : MonoBehaviour
         if(Input.GetButtonDown("ChangeControl"))
         {
             useInertion = !useInertion;
-            if(!useInertion)
+            if(useInertion)
             {
                 rb2D.velocity = moveVector;
+            }
+            else
+            {
+                rbVelocityChanged?.Invoke(0);
             }
         }
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameControll : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class GameControll : MonoBehaviour
     [SerializeField]
     private AudioSource musicAudioSource;
 
+    [SerializeField]
+    private GameObject startPausePanelSelectedObject;
+
+    [SerializeField]
+    private GameObject startDeadPanelSelectedObject;
+
     private void Awake()
     {
         deadPanel.SetActive(false);
@@ -36,6 +43,7 @@ public class GameControll : MonoBehaviour
         deadAudioSource.Play();
         scoreText.text = score.ToString();
         deadPanel.SetActive(true);
+        SetSelectedUI(startDeadPanelSelectedObject);
     }
 
     private void PausePanelToggle()
@@ -51,6 +59,7 @@ public class GameControll : MonoBehaviour
             else
             {
                 pausePanel.SetActive(true);
+                SetSelectedUI(startPausePanelSelectedObject);
                 musicAudioSource.Pause();
                 GameTime.Pause = true;
             }
@@ -65,5 +74,11 @@ public class GameControll : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    private void SetSelectedUI(GameObject UIgameObject)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(UIgameObject);
     }
 }

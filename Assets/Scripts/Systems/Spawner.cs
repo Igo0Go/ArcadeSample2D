@@ -6,6 +6,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
+    private GameObject deadWavePrefab;
+    [SerializeField]
     private List<SpawnItem> bonusesForSpawn;
     [SerializeField]
     private List<SpawnItem> enemiesForSpawn;
@@ -50,6 +52,14 @@ public class Spawner : MonoBehaviour
         foreach (var item in enemiesForSpawn)
         {
             totalEnemyWeight += item.weight;
+        }
+    }
+
+    public void SpawnDeadWave()
+    {
+        if(playerStarShip != null)
+        {
+            Instantiate(deadWavePrefab, playerStarShip.position, Quaternion.identity);
         }
     }
 

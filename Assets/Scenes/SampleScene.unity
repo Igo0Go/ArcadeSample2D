@@ -538,23 +538,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 15
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1562602723}
-          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: UnBlockBonus
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - timeThreshold: 20
+  - timeThreshold: 21
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -570,6 +554,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - timeThreshold: 32
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteBonus
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
           m_MethodName: UnBlockBonus
@@ -577,12 +577,12 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 35
+  - timeThreshold: 45
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -600,6 +600,38 @@ MonoBehaviour:
           m_CallState: 2
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteEnemy
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 65
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnDeadWave
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 69
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
           m_MethodName: UnBlockEnemy
           m_Mode: 3
           m_Arguments:
@@ -610,7 +642,75 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 45
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteEnemy
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteEnemy
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 77
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: UnBlockBonus
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteBonus
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 90
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnDeadWave
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 94
     unityEvent:
       m_PersistentCalls:
         m_Calls:
@@ -626,6 +726,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnConcreteEnemy
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 108
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
           m_MethodName: UnBlockBonus
@@ -638,13 +754,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 69
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnConcreteEnemy
+          m_MethodName: SpawnConcreteBonus
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -654,13 +766,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 77
+  - timeThreshold: 117
     unityEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnNextBonus
+          m_MethodName: SpawnNextEnemy
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -670,10 +782,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 91
+  - timeThreshold: 122
     unityEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnNextEnemy
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 142
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: UnBlockBonus
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
           m_MethodName: SpawnConcreteBonus
@@ -686,30 +826,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 123
+  - timeThreshold: 169
     unityEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnConcreteEnemy
-          m_Mode: 3
+          m_MethodName: SpawnDeadWave
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 142
+  - timeThreshold: 175
     unityEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnConcreteBonus
-          m_Mode: 3
+          m_MethodName: SpawnNextEnemy
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -724,8 +864,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnConcreteBonus
-          m_Mode: 3
+          m_MethodName: SpawnNextEnemy
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -734,6 +874,42 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - timeThreshold: 191
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnNextEnemy
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 196
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1562602723}
+          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
+          m_MethodName: SpawnNextEnemy
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - timeThreshold: 202
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1562602723}
           m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
           m_MethodName: SpawnConcreteBonus
@@ -742,22 +918,6 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 3
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - timeThreshold: 218
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1562602723}
-          m_TargetAssemblyTypeName: Spawner, Assembly-CSharp
-          m_MethodName: SpawnConcreteEnemy
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -785,7 +945,7 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -1172,6 +1332,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 339539388}
     - target: {fileID: 1612928478648376130, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: waveSystem
+      value: 
+      objectReference: {fileID: 1478879246}
+    - target: {fileID: 1612928478648376130, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: musicAudioSource
       value: 
       objectReference: {fileID: 1680984772}
@@ -1336,6 +1500,10 @@ PrefabInstance:
       propertyPath: scoreHolder
       value: 
       objectReference: {fileID: 776749675}
+    - target: {fileID: 5403557716831136477, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
+      propertyPath: deadWavePrefab
+      value: 
+      objectReference: {fileID: 9060602497983693489, guid: 65c0affdd2eff8740b5cb6711ff5b334, type: 3}
     - target: {fileID: 5403557716831136477, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
       propertyPath: playerStarShip
       value: 

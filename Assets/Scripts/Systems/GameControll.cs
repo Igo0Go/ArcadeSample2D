@@ -59,7 +59,7 @@ public class GameControll : MonoBehaviour
         {
             deadAudioSource.Play();
             deadMarker.SetActive(true);
-            waveSystem.StopWorkAndDelete();
+            waveSystem?.StopWorkAndDelete();
         }
         else
         {

@@ -30,7 +30,7 @@ public class WaveSystem : MonoBehaviour
     public void StopWorkAndDelete()
     {
         StopAllCoroutines();
-        Destroy(gameObject);
+        Destroy(gameObject, Time.deltaTime);
     }
 }
 

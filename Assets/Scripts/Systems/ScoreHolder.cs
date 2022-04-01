@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +24,11 @@ public class ScoreHolder : MonoBehaviour
 
     public void PrepareScoreForDeadPanel()
     {
-        gameControll.ShowDeadPanel(currentScore);
+        gameControll.ShowFinalPanel(currentScore, true);
+    }
+
+    public void PrepareScoreForWinPanel()
+    {
+        gameControll.ShowFinalPanel(currentScore, false);
     }
 }

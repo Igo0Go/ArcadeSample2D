@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
 {
-
     #region Доступные в редакторе поля
 
     [SerializeField]                                            //Отрисовать в редакторе
@@ -13,6 +13,12 @@ public class PlayerMoveControl : MonoBehaviour
     [Tooltip("Скорость перемещения звездолёта игрока")]         //Сделать всплывающую подсказку
     private float speed = 1;
 
+    [Range(0,1)]
+    [SerializeField]
+    private float rotateDelta = 0.8f;
+
+    [SerializeField]
+    private bool useInertion = false;
 
     [SerializeField]
     [Tooltip("Включить режим отладки скрипта для этого объекта. Будет отображаться вспомогательная отрисовка в окне сцены, а в консоль будут добаляться логи")]
@@ -25,6 +31,8 @@ public class PlayerMoveControl : MonoBehaviour
     [HideInInspector]
     public Vector2 moveVector;
 
+    public UnityEvent<float> rbVelocityChanged = new UnityEvent<float>();
+
     #endregion
 
     #region приватные поля
@@ -32,11 +40,11 @@ public class PlayerMoveControl : MonoBehaviour
     private Rigidbody2D rb2D;
     private Transform myTransform;
     private float x, y;
+    private const float inertionMultiplicator = 50;
 
     Vector3 debugVector;
 
     #endregion
-
 
     #region Обработка событий Unity
     void Start()
@@ -44,37 +52,69 @@ public class PlayerMoveControl : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
         moveVector = Vector2.zero;
+        useInertion = true;
     }
 
     void Update()
     {
+        Move();
+        ChangeControl();
+    }
+    #endregion
+
+    private void Move()
+    {
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
-        if(x != 0 || y != 0)
+        if (x != 0 || y != 0)
         {
-            moveVector = new Vector2(x,y);
+            moveVector = new Vector2(x, y);
             moveVector.Normalize();
 
             if (debug)
             {
                 debugVector = moveVector;
-                Debug.Log("Текуший вектор движения игрока: " + debugVector + ". Его длина: " + debugVector.magnitude);
+                Debug.Log("Текуший вектор движения игрока: " + debugVector +
+                    ". Его длина: " + debugVector.magnitude);
             }
 
             moveVector *= speed;
-            moveVector *= Time.deltaTime;
+            moveVector *= GameTime.DeltaTime;
 
-            rb2D.position += moveVector;
-            myTransform.up = moveVector;
+            if (useInertion)
+            {
+                rb2D.AddForce(moveVector * inertionMultiplicator);
+                rbVelocityChanged?.Invoke(rb2D.velocity.magnitude);
+            }
+            else
+            {
+                rb2D.position += moveVector;
+            }
+
+            myTransform.up = Vector3.Lerp(myTransform.up, moveVector, rotateDelta);
         }
         else
         {
             debugVector = Vector3.zero;
         }
     }
-    #endregion
-
+    private void ChangeControl()
+    {
+        if(Input.GetButtonDown("ChangeControl"))
+        {
+            useInertion = !useInertion;
+            if(useInertion)
+            {
+                rb2D.velocity = moveVector;
+            }
+            else
+            {
+                rb2D.velocity = Vector2.zero;
+                rbVelocityChanged?.Invoke(0);
+            }
+        }
+    }
 
     private void OnDrawGizmos()
     {

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameControll : MonoBehaviour
 {
@@ -13,16 +12,38 @@ public class GameControll : MonoBehaviour
     private GameObject pausePanel;
 
     [SerializeField]
-    private GameObject deadPanel;
+    private GameObject finalPanel;
+
+    [SerializeField]
+    private GameObject deadMarker;
+
+    [SerializeField]
+    private GameObject winMarker;
 
     [SerializeField]
     private AudioSource deadAudioSource;
 
+    [SerializeField]
+    private AudioSource musicAudioSource;
+
+    [SerializeField]
+    private GameObject startPausePanelSelectedObject;
+
+    [SerializeField]
+    private GameObject startDeadPanelSelectedObject;
+
+    [SerializeField]
+    private WaveSystem waveSystem;
+
     private void Awake()
     {
-        deadPanel.SetActive(false);
+        deadMarker.SetActive(false);
+        winMarker.SetActive(false);
+        finalPanel.SetActive(false);
         pausePanel.SetActive(false);
-        Time.timeScale = 1;
+        GameTime.Pause = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -30,26 +51,46 @@ public class GameControll : MonoBehaviour
         PausePanelToggle();
     }
 
-    public void ShowDeadPanel(int score)
+    public void ShowFinalPanel(int score, bool dead)
     {
-        deadAudioSource.Play();
         scoreText.text = score.ToString();
-        deadPanel.SetActive(true);
+        finalPanel.SetActive(true);
+        if(dead)
+        {
+            deadAudioSource.Play();
+            deadMarker.SetActive(true);
+            waveSystem?.StopWorkAndDelete();
+        }
+        else
+        {
+            winMarker.SetActive(true);
+            GameTime.Pause = true;
+        }
+        SetSelectedUI(startDeadPanelSelectedObject);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void PausePanelToggle()
     {
-        if(Input.GetButtonDown("Cancel") && !deadPanel.activeSelf)
+        if(Input.GetButtonDown("Cancel") && !finalPanel.activeSelf)
         {
             if(pausePanel.activeSelf)
             {
                 pausePanel.SetActive(false);
-                Time.timeScale = 1;
+                musicAudioSource.UnPause();
+                GameTime.Pause = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             else
             {
                 pausePanel.SetActive(true);
-                Time.timeScale = 0;
+                SetSelectedUI(startPausePanelSelectedObject);
+                musicAudioSource.Pause();
+                GameTime.Pause = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }
@@ -62,5 +103,11 @@ public class GameControll : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    private void SetSelectedUI(GameObject UIgameObject)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(UIgameObject);
     }
 }

@@ -65,7 +65,7 @@ public class PlayerShot : MonoBehaviour
 
         if(leftDelay > 0)
         {
-            leftDelay -= Time.deltaTime;
+            leftDelay -= GameTime.DeltaTime;
         }
         else
         {
@@ -74,7 +74,7 @@ public class PlayerShot : MonoBehaviour
 
         if (rightDelay > 0)
         {
-            rightDelay -= Time.deltaTime;
+            rightDelay -= GameTime.DeltaTime;
         }
         else
         {

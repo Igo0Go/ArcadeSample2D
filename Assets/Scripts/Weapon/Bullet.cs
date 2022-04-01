@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     {
         myTransform = transform;
         oldpos = myTransform.position;
-        Destroy(gameObject, 5);
+        Destroy(gameObject, 10);
         bulletDirection = myTransform.up;
         StartCoroutine(MoveBulletCoroutine());
     }
@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
         while(true)
         {
             oldpos = myTransform.position;
-            myTransform.position += bulletDirection * bulletSpeed * Time.deltaTime;
+            myTransform.position += bulletDirection * bulletSpeed * GameTime.DeltaTime;
             CheckCollision();
             yield return null;
         }

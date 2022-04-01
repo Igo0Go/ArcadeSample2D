@@ -40,7 +40,7 @@ public class SmartEnemy : BaseEnemy
 
             Vector2 direction = (target - myTransform.position).normalized;
             myTransform.up = direction;
-            rb.position += direction * speed * Time.deltaTime;
+            rb.position += direction * speed * GameTime.DeltaTime;
             yield return null;
         }
     }

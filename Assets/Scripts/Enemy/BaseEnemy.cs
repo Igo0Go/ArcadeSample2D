@@ -26,8 +26,12 @@ public class BaseEnemy : MonoBehaviour
 
     public void Kill()
     {
-        spawner.PlaySound(destroySound);
         spawner.SpawnNextEnemy();
+        DestroyThis();
+    }
+    public void DestroyThis()
+    {
+        spawner.PlaySound(destroySound);
         scoreHolder.AddScore(score);
         Instantiate(decal, transform.position, Quaternion.identity);
         Destroy(gameObject);
@@ -43,6 +47,10 @@ public class BaseEnemy : MonoBehaviour
         if (collision.CompareTag("Shield"))
         {
             Kill();
+        }
+        else if(collision.CompareTag("DeadWave"))
+        {
+            DestroyThis();
         }
     }
 }

@@ -53,12 +53,20 @@ public class BouncingEnemy : BaseEnemy
 
             while (t > 0)
             {
-                t -= Time.deltaTime;
-                moveVector = (player.position - myTransform.position);
-                debugVector = moveVector;
-                moveVector.Normalize();
-                myTransform.up = moveVector;
-                debugtargetPos = player.position;
+                try
+                {
+                    t -= GameTime.DeltaTime;
+                    moveVector = (player.position - myTransform.position);
+                    debugVector = moveVector;
+                    moveVector.Normalize();
+                    myTransform.up = moveVector;
+                    debugtargetPos = player.position;
+                }
+                catch (System.NullReferenceException)
+                {
+
+                }
+
                 yield return null;
             }
             attackSygnal.SetActive(true);
@@ -68,9 +76,9 @@ public class BouncingEnemy : BaseEnemy
 
             yield return new WaitForSeconds(attackSygnalTime);
 
-            while(currentSpeed > stopSpeed)
+            while (currentSpeed > stopSpeed)
             {
-                rb.position += moveVector * currentSpeed * Time.deltaTime;
+                rb.position += moveVector * currentSpeed * GameTime.DeltaTime;
 
                 hit2D = Physics2D.Raycast(myTransform.position, moveVector, 0.4f, ~ignoreMask);
 
@@ -83,7 +91,6 @@ public class BouncingEnemy : BaseEnemy
                 }
                 yield return null;
             }
-
             currentSpeed = 0;
         }
     }

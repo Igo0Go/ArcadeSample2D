@@ -110,6 +110,7 @@ public class PlayerMoveControl : MonoBehaviour
             }
             else
             {
+                rb2D.velocity = Vector2.zero;
                 rbVelocityChanged?.Invoke(0);
             }
         }

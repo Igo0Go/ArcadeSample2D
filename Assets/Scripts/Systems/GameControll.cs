@@ -12,7 +12,13 @@ public class GameControll : MonoBehaviour
     private GameObject pausePanel;
 
     [SerializeField]
-    private GameObject deadPanel;
+    private GameObject finalPanel;
+
+    [SerializeField]
+    private GameObject deadMarker;
+
+    [SerializeField]
+    private GameObject winMarker;
 
     [SerializeField]
     private AudioSource deadAudioSource;
@@ -26,9 +32,14 @@ public class GameControll : MonoBehaviour
     [SerializeField]
     private GameObject startDeadPanelSelectedObject;
 
+    [SerializeField]
+    private WaveSystem waveSystem;
+
     private void Awake()
     {
-        deadPanel.SetActive(false);
+        deadMarker.SetActive(false);
+        winMarker.SetActive(false);
+        finalPanel.SetActive(false);
         pausePanel.SetActive(false);
         GameTime.Pause = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -40,11 +51,21 @@ public class GameControll : MonoBehaviour
         PausePanelToggle();
     }
 
-    public void ShowDeadPanel(int score)
+    public void ShowFinalPanel(int score, bool dead)
     {
-        deadAudioSource.Play();
         scoreText.text = score.ToString();
-        deadPanel.SetActive(true);
+        finalPanel.SetActive(true);
+        if(dead)
+        {
+            deadAudioSource.Play();
+            deadMarker.SetActive(true);
+            waveSystem.StopWorkAndDelete();
+        }
+        else
+        {
+            winMarker.SetActive(true);
+            GameTime.Pause = true;
+        }
         SetSelectedUI(startDeadPanelSelectedObject);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -52,7 +73,7 @@ public class GameControll : MonoBehaviour
 
     private void PausePanelToggle()
     {
-        if(Input.GetButtonDown("Cancel") && !deadPanel.activeSelf)
+        if(Input.GetButtonDown("Cancel") && !finalPanel.activeSelf)
         {
             if(pausePanel.activeSelf)
             {

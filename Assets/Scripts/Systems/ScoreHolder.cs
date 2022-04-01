@@ -24,6 +24,11 @@ public class ScoreHolder : MonoBehaviour
 
     public void PrepareScoreForDeadPanel()
     {
-        gameControll.ShowDeadPanel(currentScore);
+        gameControll.ShowFinalPanel(currentScore, true);
+    }
+
+    public void PrepareScoreForWinPanel()
+    {
+        gameControll.ShowFinalPanel(currentScore, false);
     }
 }

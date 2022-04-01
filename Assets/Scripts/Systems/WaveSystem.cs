@@ -26,6 +26,12 @@ public class WaveSystem : MonoBehaviour
             wave.unityEvent?.Invoke();
         }
     }
+
+    public void StopWorkAndDelete()
+    {
+        StopAllCoroutines();
+        Destroy(gameObject);
+    }
 }
 
 [System.Serializable]

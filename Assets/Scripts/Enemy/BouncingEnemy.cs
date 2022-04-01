@@ -53,12 +53,20 @@ public class BouncingEnemy : BaseEnemy
 
             while (t > 0)
             {
-                t -= GameTime.DeltaTime;
-                moveVector = (player.position - myTransform.position);
-                debugVector = moveVector;
-                moveVector.Normalize();
-                myTransform.up = moveVector;
-                debugtargetPos = player.position;
+                try
+                {
+                    t -= GameTime.DeltaTime;
+                    moveVector = (player.position - myTransform.position);
+                    debugVector = moveVector;
+                    moveVector.Normalize();
+                    myTransform.up = moveVector;
+                    debugtargetPos = player.position;
+                }
+                catch (System.NullReferenceException)
+                {
+
+                }
+
                 yield return null;
             }
             attackSygnal.SetActive(true);
@@ -68,7 +76,7 @@ public class BouncingEnemy : BaseEnemy
 
             yield return new WaitForSeconds(attackSygnalTime);
 
-            while(currentSpeed > stopSpeed)
+            while (currentSpeed > stopSpeed)
             {
                 rb.position += moveVector * currentSpeed * GameTime.DeltaTime;
 
@@ -83,7 +91,6 @@ public class BouncingEnemy : BaseEnemy
                 }
                 yield return null;
             }
-
             currentSpeed = 0;
         }
     }

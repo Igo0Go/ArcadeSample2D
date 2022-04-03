@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BaseEnemy : MonoBehaviour
+public class BaseEnemy : MonoBehaviour, ISpawnObject
 {
     [SerializeField]
     [Range(1,10)]
@@ -18,7 +18,7 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField]
     private GameObject decal;
 
-    public virtual void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
+    public virtual void Prepare(Spawner spawner, ScoreHolder scoreHolder)
     {
         this.spawner = spawner;
         this.scoreHolder = scoreHolder;
@@ -53,4 +53,9 @@ public class BaseEnemy : MonoBehaviour
             DestroyThis();
         }
     }
+}
+
+public interface ISpawnObject
+{
+    void Prepare(Spawner spawner, ScoreHolder scoreHolder);
 }

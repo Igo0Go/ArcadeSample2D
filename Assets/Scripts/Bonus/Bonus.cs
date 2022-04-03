@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bonus : MonoBehaviour
+public class Bonus : MonoBehaviour, ISpawnObject
 {
     [Range(1,10)]
     public int score = 1;
@@ -15,7 +15,7 @@ public class Bonus : MonoBehaviour
     private ScoreHolder holder;
     private Spawner gameplaySpawner;
 
-    public void PrepareBonus(ScoreHolder scoreHolder, Spawner spawner)
+    public void Prepare(Spawner spawner, ScoreHolder scoreHolder)
     {
         holder = scoreHolder;
         gameplaySpawner = spawner;

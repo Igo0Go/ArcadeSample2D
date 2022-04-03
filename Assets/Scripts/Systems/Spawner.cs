@@ -57,6 +57,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnDeadWave()
     {
+        StopAllCoroutines();
         if(playerStarShip != null)
         {
             Instantiate(deadWavePrefab, playerStarShip.position, Quaternion.identity);
@@ -67,11 +68,8 @@ public class Spawner : MonoBehaviour
     {
         if (playerStarShip != null)
         {
-            Bonus bonus = Instantiate(bonusesForSpawn[numberInList].spawnOhbject,
-                spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
-                Quaternion.identity,
-                bonusesContainer).GetComponent<Bonus>();
-            bonus.PrepareBonus(scoreHolder, this);
+            StartCoroutine(SpawnObjectCorroutine(playerStarShip.position, bonusesForSpawn[numberInList].spawnOhbject,
+                bonusesContainer));
         }
     }
 
@@ -79,11 +77,8 @@ public class Spawner : MonoBehaviour
     {
         if (playerStarShip != null)
         {
-            BaseEnemy enemy = Instantiate(enemiesForSpawn[numberInList].spawnOhbject,
-                spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
-                Quaternion.identity,
-                enemiesContainer).GetComponent<BaseEnemy>();
-            enemy.PrepareEnemy(this, scoreHolder);
+            StartCoroutine(SpawnObjectCorroutine(playerStarShip.position, enemiesForSpawn[numberInList].spawnOhbject,
+                bonusesContainer));
         }
     }
 
@@ -91,23 +86,17 @@ public class Spawner : MonoBehaviour
     {
         if (playerStarShip != null)
         {
-            Bonus bonus = Instantiate(GetRandomObject(bonusesForSpawn, totalBonusWeight),
-            spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
-            Quaternion.identity,
-            bonusesContainer).GetComponent<Bonus>();
-            bonus.PrepareBonus(scoreHolder, this);
+            StartCoroutine(SpawnObjectCorroutine(playerStarShip.position, GetRandomObject(bonusesForSpawn, totalBonusWeight),
+                bonusesContainer));
         }
     }
 
     public void SpawnNextEnemy()
     {
-        if(playerStarShip != null)
+        if (playerStarShip != null)
         {
-            BaseEnemy enemy = Instantiate(GetRandomObject(enemiesForSpawn, totalEnemyWeight),
-                spawnArea.GetSpawnPointByPlayerPoint(playerStarShip.position),
-                Quaternion.identity,
-                enemiesContainer).GetComponent<BaseEnemy>();
-            enemy.PrepareEnemy(this, scoreHolder);
+            StartCoroutine(SpawnObjectCorroutine(playerStarShip.position, GetRandomObject(enemiesForSpawn, totalEnemyWeight),
+                bonusesContainer));
         }
     }
 
@@ -163,6 +152,61 @@ public class Spawner : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator SpawnObjectCorroutine(Vector3 playerPoint, GameObject spawnObject, Transform container)
+    {
+        bool isCorrectPointForSpawn;
+        float time = 1f;
+        Vector2 currentSpawnPoint;
+        Rect spawnZone = spawnArea.GetSpawnZone(playerPoint);
+        BaseEnemy[] enemies = FindObjectsOfType<BaseEnemy>();
+
+        do
+        {
+            time -= GameTime.DeltaTime;
+            currentSpawnPoint = new Vector2
+            {
+                x = Random.Range(spawnZone.x, spawnZone.x + spawnZone.width),
+                y = Random.Range(spawnZone.y, spawnZone.y + spawnZone.height)
+            };
+
+            if(time <= 0)
+            {
+                break;
+            }
+
+            isCorrectPointForSpawn = true;
+
+            try
+            {
+                if (Vector3.Distance(playerPoint, currentSpawnPoint) < 2f)
+                {
+                    isCorrectPointForSpawn = false;
+                }
+
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    if (Vector3.Distance(playerPoint, enemies[i].transform.position) < 2f)
+                    {
+                        isCorrectPointForSpawn = false;
+                    }
+                }
+            }
+            catch (System.NullReferenceException)
+            {
+                break;
+            }
+            catch(MissingReferenceException)
+            {
+                break;
+            }
+            yield return null;
+        }
+        while (!isCorrectPointForSpawn);
+
+        Instantiate(spawnObject, currentSpawnPoint, Quaternion.identity, container).
+            GetComponent<ISpawnObject>().Prepare(this, scoreHolder);
+    }
 }
 
 [System.Serializable]
@@ -186,36 +230,21 @@ public class SpawnArea
         centerPoint.y = leftDown.position.y + height / 2;
     }
 
-    public Vector2 GetSpawnPointByPlayerPoint (Vector3 playerPoint)
+    public Rect GetSpawnZone(Vector3 playerPoint)
     {
-        Vector2 resultSpawnPoint;
-        do
+        Vector2 position = leftDown.position;
+        Vector2 size = new Vector2(width / 2, height / 2);
+
+        if (playerPoint.x < centerPoint.x)
         {
-            Vector2 position = leftDown.position;
-            Vector2 size = new Vector2(width / 2, height / 2);
-
-            if (playerPoint.x < centerPoint.x)
-            {
-                position.x = centerPoint.x;
-            }
-
-            if (playerPoint.y < centerPoint.y)
-            {
-                position.y = centerPoint.y;
-            }
-
-
-            Rect spawnZone = new Rect(position, size);
-
-            resultSpawnPoint = new Vector2
-            {
-                x = Random.Range(spawnZone.x, spawnZone.x + spawnZone.width),
-                y = Random.Range(spawnZone.y, spawnZone.y + spawnZone.height)
-            };
+            position.x = centerPoint.x;
         }
-        while (Vector3.Distance(playerPoint, resultSpawnPoint) < 2f);
 
-        return resultSpawnPoint;
+        if (playerPoint.y < centerPoint.y)
+        {
+            position.y = centerPoint.y;
+        }
+        return new Rect(position, size);
     }
 }
 

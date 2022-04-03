@@ -17,12 +17,12 @@ public class SmartEnemy : BaseEnemy
 
     private Vector3 target;
 
-    public override void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
+    public override void Prepare(Spawner spawner, ScoreHolder scoreHolder)
     {
         rb = GetComponent<Rigidbody2D>();
         myTransform = transform;
         player = spawner.playerStarShip;
-        base.PrepareEnemy(spawner, scoreHolder);
+        base.Prepare(spawner, scoreHolder);
         StartCoroutine(MoveToPlayerCoroutine());
     }
 
@@ -30,17 +30,28 @@ public class SmartEnemy : BaseEnemy
     {
         while (player != null)
         {
-            float distance = Vector3.Distance(player.position, myTransform.position);
-            target = distance > 5? player.position + player.up * 5 : player.position + player.up * distance;
-
-            if(Vector3.Distance(myTransform.position, target) < 1.5)
+            try
             {
-                target = player.position;
-            }
+                float distance = Vector3.Distance(player.position, myTransform.position);
+                target = distance > 5 ? player.position + player.up * 5 : player.position + player.up * distance;
 
-            Vector2 direction = (target - myTransform.position).normalized;
-            myTransform.up = direction;
-            rb.position += direction * speed * GameTime.DeltaTime;
+                if (Vector3.Distance(myTransform.position, target) < 1.5)
+                {
+                    target = player.position;
+                }
+
+                Vector2 direction = (target - myTransform.position).normalized;
+                myTransform.up = direction;
+                rb.position += direction * speed * GameTime.DeltaTime;
+            }
+            catch (System.NullReferenceException)
+            {
+                break;
+            }
+            catch (MissingReferenceException)
+            {
+                break;
+            }
             yield return null;
         }
     }

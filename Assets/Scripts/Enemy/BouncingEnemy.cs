@@ -33,15 +33,15 @@ public class BouncingEnemy : BaseEnemy
     private float currentSpeed;
     private const float stopSpeed = 1.5f;
     Vector3 debugVector;
-    Vector3 debugtargetPos;
+    Vector3 debugTargetPos;
 
-    public override void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
+    public override void Prepare(Spawner spawner, ScoreHolder scoreHolder)
     {
         attackSygnal.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         myTransform = transform;
         player = spawner.playerStarShip;
-        base.PrepareEnemy(spawner, scoreHolder);
+        base.Prepare(spawner, scoreHolder);
         StartCoroutine(MoveToPlayerCoroutine());
     }
 
@@ -53,18 +53,22 @@ public class BouncingEnemy : BaseEnemy
 
             while (t > 0)
             {
+                t -= GameTime.DeltaTime;
                 try
                 {
-                    t -= GameTime.DeltaTime;
                     moveVector = (player.position - myTransform.position);
                     debugVector = moveVector;
                     moveVector.Normalize();
                     myTransform.up = moveVector;
-                    debugtargetPos = player.position;
+                    debugTargetPos = player.position;
                 }
                 catch (System.NullReferenceException)
                 {
-
+                    break;
+                }
+                catch (MissingReferenceException)
+                {
+                    break;
                 }
 
                 yield return null;
@@ -106,7 +110,7 @@ public class BouncingEnemy : BaseEnemy
                 Gizmos.DrawSphere(transform.position + debugVector.normalized * stopSpeed, 0.2f);
             }
             Gizmos.DrawLine(transform.position, transform.position + debugVector);
-            Gizmos.DrawWireSphere(debugtargetPos, 0.5f);
+            Gizmos.DrawWireSphere(debugTargetPos, 0.5f);
         }
     }
 }

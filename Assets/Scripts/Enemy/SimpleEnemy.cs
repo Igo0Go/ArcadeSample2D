@@ -15,11 +15,11 @@ public class SimpleEnemy : BaseEnemy
     protected Transform myTransform;
     protected Rigidbody2D rb;
 
-    public override void PrepareEnemy(Spawner spawner, ScoreHolder scoreHolder)
+    public override void Prepare(Spawner spawner, ScoreHolder scoreHolder)
     {
         rb = GetComponent<Rigidbody2D>();
         myTransform = transform;
-        base.PrepareEnemy(spawner, scoreHolder);
+        base.Prepare(spawner, scoreHolder);
         player = spawner.playerStarShip;
         StartCoroutine(MoveToPlayerCoroutine());
     }
@@ -28,9 +28,20 @@ public class SimpleEnemy : BaseEnemy
     {
         while(player != null)
         {
-            Vector2 direction = (player.position - myTransform.position).normalized;
-            myTransform.up = direction;
-            rb.position += direction * speed * GameTime.DeltaTime;
+            try
+            {
+                Vector2 direction = (player.position - myTransform.position).normalized;
+                myTransform.up = direction;
+                rb.position += direction * speed * GameTime.DeltaTime;
+            }
+            catch (System.NullReferenceException)
+            {
+                break;
+            }
+            catch (MissingReferenceException)
+            {
+                break;
+            }
             yield return null;
         }
     }

@@ -24,13 +24,13 @@ public class TargetTrackerBullet : Bullet
                 if(targets.Length > 0)
                 {
                     target = targets[0].transform;
-                    float distance = Vector3.Distance(target.position, target.position);
+                    float distance = Vector3.Distance(myTransform.position, target.position);
                     for (int i = 1; i < targets.Length; i++)
                     {
-                        if (Vector3.Distance(target.position, targets[i].transform.position) < distance)
+                        if (Vector3.Distance(myTransform.position, targets[i].transform.position) < distance)
                         {
                             target = targets[i].transform;
-                            distance = Vector3.Distance(target.position, target.position);
+                            distance = Vector3.Distance(myTransform.position, target.position);
                         }
                     }
                 }
@@ -41,12 +41,25 @@ public class TargetTrackerBullet : Bullet
             float t = 0;
             while (target != null)
             {
-                Vector3 directionTotarget = (target.position - myTransform.position).normalized;
-                if(t < 1)
+                Vector3 directionToTarget = Vector3.zero;
+                try
                 {
-                    t += GameTime.DeltaTime / 4;
+                    directionToTarget = (target.position - myTransform.position).normalized;
+                    if (t < 1)
+                    {
+                        t += GameTime.DeltaTime / 4;
+                    }
+                    bulletDirection = Vector3.Lerp(bulletDirection, directionToTarget, t);
                 }
-                bulletDirection = Vector3.Lerp(bulletDirection, directionTotarget, t);
+                catch (System.NullReferenceException)
+                {
+                    directionToTarget = myTransform.up;
+                }
+                catch (MissingReferenceException)
+                {
+                    directionToTarget = myTransform.up;
+                }
+
                 myTransform.up = bulletDirection;
                 yield return null;
                 oldpos = myTransform.position;

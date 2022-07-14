@@ -96,6 +96,7 @@ public class BouncingEnemy : BaseEnemy
                 yield return null;
             }
             currentSpeed = 0;
+            attackSygnal.SetActive(false);
         }
     }
 

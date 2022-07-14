@@ -67,8 +67,8 @@ public class GameControll : MonoBehaviour
             GameTime.Pause = true;
         }
         SetSelectedUI(startDeadPanelSelectedObject);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void PausePanelToggle()

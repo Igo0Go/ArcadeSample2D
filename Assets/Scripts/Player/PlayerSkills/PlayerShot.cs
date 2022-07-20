@@ -6,29 +6,20 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerShot : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
-    [SerializeField]
-    private List<AudioClip> shotSounds;
+    [SerializeField] private List<AudioClip> shotSounds;
 
-    [SerializeField]
-    private float maxShotCount = 20;
+    [SerializeField] private float maxShotCount = 20;
 
-    [SerializeField]
-    [Range(0.25f, 2)]
-    private float shotDelay = 0.4f;
+    [SerializeField] [Range(0.25f, 2)] private float shotDelay = 0.4f;
 
-    [SerializeField]
-    private float currentShotCount = 0;
+    [SerializeField] private float currentShotCount = 0;
 
-    [SerializeField]
-    private Transform leftShootPoint;
-    [SerializeField]
-    private Transform rightShootPoint;
+    [SerializeField] private Transform leftShootPoint;
+    [SerializeField] private Transform rightShootPoint;
 
-    [SerializeField]
-    private Text bulletCountText;
+    [SerializeField] private Text bulletCountText;
 
     private AudioSource source;
 
@@ -48,22 +39,27 @@ public class PlayerShot : MonoBehaviour
 
     void Update()
     {
-        if(currentShotCount > 0)
+        if (currentShotCount > 0 && Input.GetButton("LeftShot") && leftDelay == 0)
         {
-            if (Input.GetButton("LeftShot") && leftDelay == 0)
-            {
-                SpawnBullet(leftShootPoint);
-                leftDelay = shotDelay;
-            }
-
-            if (Input.GetButton("RightShot") && rightDelay == 0)
-            {
-                SpawnBullet(rightShootPoint);
-                rightDelay = shotDelay;
-            }
+            SpawnBullet(leftShootPoint);
+            leftDelay = shotDelay;
+        }
+        else if (currentShotCount <1)
+        {
+            currentShotCount = 0;
+        }
+        
+        if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
+        {
+            SpawnBullet(rightShootPoint);
+            leftDelay = shotDelay;
+        }
+        else if (currentShotCount <1)
+        {
+            currentShotCount = 0;
         }
 
-        if(leftDelay > 0)
+        if (leftDelay > 0)
         {
             leftDelay -= GameTime.DeltaTime;
         }

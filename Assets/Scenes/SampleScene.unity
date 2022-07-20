@@ -711,7 +711,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - timeThreshold: 21
+  - timeThreshold: 1
     unityEvent:
       m_PersistentCalls:
         m_Calls:

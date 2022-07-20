@@ -43,6 +43,7 @@ public class PlayerShield : MonoBehaviour
         }
         else
         {
+            //StopAllCoroutines();
             currentShield = shieldTime;
         }
     }

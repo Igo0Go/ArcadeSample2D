@@ -52,7 +52,7 @@ public class PlayerShot : MonoBehaviour
         if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
         {
             SpawnBullet(rightShootPoint);
-            leftDelay = shotDelay;
+            rightDelay = shotDelay;
         }
         else if (currentShotCount <1)
         {

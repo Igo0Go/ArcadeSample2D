@@ -447,6 +447,7 @@ MonoBehaviour:
   littleShield: {fileID: 531182827456018372}
   active: 0
   danger: 0
+  shieldColor: {r: 0, g: 0, b: 0, a: 0}
   rbVelocityLenghtForShieldActivation: 2.5
 --- !u!1001 &4264465959649096204
 PrefabInstance:
@@ -461,7 +462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4264465960457997316, guid: 7775f47e976bae1448d0cd7e62abe9e8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4264465960457997317, guid: 7775f47e976bae1448d0cd7e62abe9e8, type: 3}
       propertyPath: m_RootOrder

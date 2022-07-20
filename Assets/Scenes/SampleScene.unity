@@ -2034,18 +2034,6 @@ PrefabInstance:
       propertyPath: enemiesContainer
       value: 
       objectReference: {fileID: 1671020845}
-    - target: {fileID: 5403557716831136477, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
-      propertyPath: enemiesForSpawn.Array.data[0].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5403557716831136477, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
-      propertyPath: enemiesForSpawn.Array.data[1].weight
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5403557716831136477, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
-      propertyPath: enemiesForSpawn.Array.data[2].weight
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d09eff94ef97a2d479fbe43e37e2096d, type: 3}
 --- !u!1001 &6604742421549950314

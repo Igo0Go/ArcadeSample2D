@@ -109,7 +109,7 @@ public class Spawner : MonoBehaviour
         enemiesForSpawn[numberInList].blocked = false;
     }
 
-    [ContextMenu("Тесттовый спавн бонусов")]
+    [ContextMenu("РўРµСЃС‚С‚РѕРІС‹Р№ СЃРїР°РІРЅ Р±РѕРЅСѓСЃРѕРІ")]
     public void TestSpawn()
     {
         StartCoroutine(TestSpawnCoroutine());

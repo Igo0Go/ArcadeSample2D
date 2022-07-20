@@ -4,54 +4,41 @@ using UnityEngine;
 
 public class PlayerShield : MonoBehaviour
 {
-    [Min(0)]
-    [SerializeField]
-    private float shieldTime = 3;
+    [Min(0)] [SerializeField] private float shieldTime = 3;
 
-    [SerializeField]
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-    [SerializeField]
-    private SpriteRenderer littleShield;
+    [SerializeField] private SpriteRenderer littleShield;
 
-    [HideInInspector]
-    public bool active;
+    [HideInInspector] public bool active;
 
-    [HideInInspector]
-    public bool danger;
+    [HideInInspector] public bool danger;
 
-    [SerializeField]
-    [Range(1, 4)]
-    private float rbVelocityLenghtForShieldActivation = 2.5f;
+    public Color shieldColor;
+
+    [SerializeField] [Range(1, 4)] private float rbVelocityLenghtForShieldActivation = 2.5f;
 
     private float currentShield;
 
     private void Start()
     {
+        shieldColor = spriteRenderer.color;
         spriteRenderer.gameObject.SetActive(false);
         GetComponent<PlayerMoveControl>().rbVelocityChanged.AddListener(CheckVelocityValue);
     }
 
     public void ShowShield()
     {
-        if(!active)
-        {
-            spriteRenderer.gameObject.SetActive(true);
-            currentShield = shieldTime;
-            StartCoroutine(ShieldCoroutine());
-            active = true;
-        }
-        else
-        {
-            //StopAllCoroutines();
-            currentShield = shieldTime;
-        }
+        StopAllCoroutines();
+        spriteRenderer.color = shieldColor;
+        spriteRenderer.gameObject.SetActive(true);
+        currentShield = shieldTime;
+        StartCoroutine(ShieldCoroutine());
+        active = true;
     }
 
     private IEnumerator ShieldCoroutine()
     {
-        Color shieldColor = spriteRenderer.color;
-
         float t = 1;
         while (currentShield > 0)
         {
@@ -60,6 +47,7 @@ public class PlayerShield : MonoBehaviour
             currentShield -= Time.deltaTime;
             yield return null;
         }
+
         spriteRenderer.color = shieldColor;
         yield return new WaitForSeconds(1);
         spriteRenderer.color = new Color(shieldColor.r, shieldColor.g, shieldColor.b, 0);
@@ -77,7 +65,8 @@ public class PlayerShield : MonoBehaviour
 
         if (danger)
         {
-            float alpha = Mathf.Clamp01((value - rbVelocityLenghtForShieldActivation)/(rbVelocityLenghtForShieldActivation));
+            float alpha = Mathf.Clamp01((value - rbVelocityLenghtForShieldActivation) /
+                                        (rbVelocityLenghtForShieldActivation));
             littleShield.color = new Color(littleShield.color.r, littleShield.color.g, littleShield.color.b, alpha);
         }
     }

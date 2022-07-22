@@ -20,11 +20,18 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     [SerializeField]
     private Text bulletCountText;
-
+    
+    [SerializeField]
+    private Transform contextPanel;
+    
     private AudioSource source;
 
     public void AddBullets()
-    {
+    {  
+        if (contextPanel!=null)
+        {
+            contextPanel.gameObject.SetActive(true);
+        }
         currentShotCount = maxShotCount;
         bulletCountText.text = currentShotCount.ToString();
     }
@@ -38,6 +45,8 @@ public class PlayerTargetTrackerShot : MonoBehaviour
     {
         if (Input.GetButtonDown("TargetTrackerShot") && currentShotCount > 0)
         {
+            
+            EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
             SpawnBullet(transform);
         }
     }

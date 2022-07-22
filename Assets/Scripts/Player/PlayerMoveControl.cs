@@ -69,6 +69,7 @@ public class PlayerMoveControl : MonoBehaviour
 
         if (x != 0 || y != 0)
         {
+            EventCenter.ContextEvent.Invoke(ContextType.Movement);
             moveVector = new Vector2(x, y);
             moveVector.Normalize();
 
@@ -104,6 +105,7 @@ public class PlayerMoveControl : MonoBehaviour
         if(Input.GetButtonDown("ChangeControl"))
         {
             useInertion = !useInertion;
+            EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
             if(useInertion)
             {
                 rb2D.velocity = moveVector;

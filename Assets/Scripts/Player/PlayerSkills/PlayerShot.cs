@@ -18,6 +18,7 @@ public class PlayerShot : MonoBehaviour
 
     [SerializeField] private Transform leftShootPoint;
     [SerializeField] private Transform rightShootPoint;
+    [SerializeField] private Transform contextPanel;
 
     [SerializeField] private Text bulletCountText;
 
@@ -25,8 +26,14 @@ public class PlayerShot : MonoBehaviour
 
     private float leftDelay, rightDelay;
 
+    
+
     public void AddBullets()
     {
+        if (contextPanel!=null)
+        {
+            contextPanel.gameObject.SetActive(true);
+        }
         currentShotCount = maxShotCount;
         bulletCountText.text = currentShotCount.ToString();
     }
@@ -41,6 +48,8 @@ public class PlayerShot : MonoBehaviour
     {
         if (currentShotCount > 0 && Input.GetButton("LeftShot") && leftDelay == 0)
         {
+            
+            EventCenter.ContextEvent.Invoke(ContextType.Shot);
             SpawnBullet(leftShootPoint);
             leftDelay = shotDelay;
         }
@@ -51,6 +60,8 @@ public class PlayerShot : MonoBehaviour
         
         if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
         {
+            
+            EventCenter.ContextEvent.Invoke(ContextType.Shot);
             SpawnBullet(rightShootPoint);
             rightDelay = shotDelay;
         }

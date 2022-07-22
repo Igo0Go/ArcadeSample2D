@@ -22,7 +22,10 @@ public class PlayerLaser : MonoBehaviour
 
     [SerializeField]
     private Transform targetPoint;
-
+    
+    [SerializeField]
+    private Transform contextPanel;
+    
     private RaycastHit2D hit;
 
     private void Start()
@@ -35,6 +38,7 @@ public class PlayerLaser : MonoBehaviour
     {
         if(Input.GetButton("Laser") && laserEnergyValue.value > 0)
         {
+            EventCenter.ContextEvent.Invoke(ContextType.Laser);
             Ray();
         }
         else
@@ -45,6 +49,10 @@ public class PlayerLaser : MonoBehaviour
 
     public void AddPower()
     {
+        if (contextPanel!=null)
+        {
+            contextPanel.gameObject.SetActive(true);
+        }
         laserEnergyValue.value = laserEnergyValue.maxValue;
     }
 

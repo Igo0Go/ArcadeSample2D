@@ -9,7 +9,10 @@ public class GameControll : MonoBehaviour
     private Text scoreText;
 
     [SerializeField]
-    private GameObject pausePanel;
+    private GameObject pausePanel; 
+    
+    [SerializeField]
+    private GameObject nighTalesButton;
 
     [SerializeField]
     private GameObject finalPanel;
@@ -41,6 +44,7 @@ public class GameControll : MonoBehaviour
         winMarker.SetActive(false);
         finalPanel.SetActive(false);
         pausePanel.SetActive(false);
+        nighTalesButton.SetActive(false);
         GameTime.Pause = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -55,6 +59,7 @@ public class GameControll : MonoBehaviour
     {
         scoreText.text = score.ToString();
         finalPanel.SetActive(true);
+        nighTalesButton.SetActive(true);
         if(dead)
         {
             deadAudioSource.Play();
@@ -78,6 +83,7 @@ public class GameControll : MonoBehaviour
             if(pausePanel.activeSelf)
             {
                 pausePanel.SetActive(false);
+                nighTalesButton.SetActive(false);
                 musicAudioSource.UnPause();
                 GameTime.Pause = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -86,6 +92,7 @@ public class GameControll : MonoBehaviour
             else
             {
                 pausePanel.SetActive(true);
+                nighTalesButton.SetActive(true);
                 SetSelectedUI(startPausePanelSelectedObject);
                 musicAudioSource.Pause();
                 GameTime.Pause = true;

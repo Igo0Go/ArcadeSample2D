@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerTargetTrackerShot : MonoBehaviour
@@ -20,15 +21,15 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     [SerializeField]
     private Text bulletCountText;
-    
+
     [SerializeField]
     private Transform contextPanel;
-    
+
     private AudioSource source;
 
     public void AddBullets()
-    {  
-        if (contextPanel!=null)
+    {
+        if (contextPanel != null)
         {
             contextPanel.gameObject.SetActive(true);
         }
@@ -43,9 +44,18 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("TargetTrackerShot") && currentShotCount > 0)
+        //if (Input.GetButtonDown("TargetTrackerShot") && currentShotCount > 0)
+        //{
+
+        //    EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
+        //    SpawnBullet(transform);
+        //}
+    }
+    public void OnFire2(InputAction.CallbackContext value)
+    {
+        if (value.ReadValueAsButton() && currentShotCount > 0)
         {
-            
+
             EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
             SpawnBullet(transform);
         }

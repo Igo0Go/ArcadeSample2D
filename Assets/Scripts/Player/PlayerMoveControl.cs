@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
@@ -13,7 +14,7 @@ public class PlayerMoveControl : MonoBehaviour
     [Tooltip("Скорость перемещения звездолёта игрока")]         //Сделать всплывающую подсказку
     private float speed = 1;
 
-    [Range(0,1)]
+    [Range(0, 1)]
     [SerializeField]
     private float rotateDelta = 0.8f;
 
@@ -29,7 +30,7 @@ public class PlayerMoveControl : MonoBehaviour
     #region недоступные в редакторе публичные поля
 
     [HideInInspector]
-    public Vector2 moveVector;
+    private Vector2 moveVector;
 
     public UnityEvent<float> rbVelocityChanged = new UnityEvent<float>();
 
@@ -38,6 +39,7 @@ public class PlayerMoveControl : MonoBehaviour
     #region приватные поля
 
     private Rigidbody2D rb2D;
+    private PlayerInput playerInput; 
     private Transform myTransform;
     private float x, y;
     private const float inertionMultiplicator = 50;
@@ -50,6 +52,7 @@ public class PlayerMoveControl : MonoBehaviour
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        playerInput = GetComponent<PlayerInput>();
         myTransform = transform;
         moveVector = Vector2.zero;
         useInertion = true;
@@ -58,20 +61,22 @@ public class PlayerMoveControl : MonoBehaviour
     void Update()
     {
         Move();
-        ChangeControl();
+        //ChangeControl();
     }
     #endregion
 
     private void Move()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        //x = Input.GetAxis("Horizontal");
+        //y = Input.GetAxis("Vertical");
+       // moveVector = playerInput.actions.actionMaps[0]. .ReadValue<Vector2>();
 
-        if (x != 0 || y != 0)
+        //if (x != 0 || y != 0)
+        if (moveVector.magnitude > 0)
         {
             EventCenter.ContextEvent.Invoke(ContextType.Movement);
-            moveVector = new Vector2(x, y);
-            moveVector.Normalize();
+            //moveVector = new Vector2(x, y);
+            //moveVector.Normalize();
 
             if (debug)
             {
@@ -80,8 +85,8 @@ public class PlayerMoveControl : MonoBehaviour
                     ". Его длина: " + debugVector.magnitude);
             }
 
-            moveVector *= speed;
-            moveVector *= GameTime.DeltaTime;
+            //moveVector *= speed;
+            //moveVector *= GameTime.DeltaTime;
 
             if (useInertion)
             {
@@ -100,13 +105,39 @@ public class PlayerMoveControl : MonoBehaviour
             debugVector = Vector3.zero;
         }
     }
+
+    public void OnMove(InputAction.CallbackContext value)
+    {
+        moveVector = value.ReadValue<Vector2>();
+        moveVector *= speed;
+        moveVector *= GameTime.DeltaTime;
+    }
+    public void OnSwitch(InputAction.CallbackContext value)
+    {
+
+        if (value.ReadValueAsButton())
+        {
+            useInertion = !useInertion;
+
+            EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
+            if (useInertion)
+            {
+                rb2D.velocity = moveVector;
+            }
+            else
+            {
+                rb2D.velocity = Vector2.zero;
+                rbVelocityChanged?.Invoke(0);
+            }
+        }
+    }
     private void ChangeControl()
     {
-        if(Input.GetButtonDown("ChangeControl"))
+        if (Input.GetButtonDown("ChangeControl"))
         {
             useInertion = !useInertion;
             EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
-            if(useInertion)
+            if (useInertion)
             {
                 rb2D.velocity = moveVector;
             }
@@ -120,7 +151,7 @@ public class PlayerMoveControl : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(debug)
+        if (debug)
         {
             Gizmos.color = Color.white;
             Gizmos.DrawWireSphere(transform.position, 1);

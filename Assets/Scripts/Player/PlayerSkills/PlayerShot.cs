@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerShot : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlayerShot : MonoBehaviour
 
     [SerializeField] private float maxShotCount = 20;
 
-    [SerializeField] [Range(0.25f, 2)] private float shotDelay = 0.4f;
+    [SerializeField] [Range(0.01f, 2)] private float shotDelay = 0.4f;
 
     [SerializeField] private float currentShotCount = 0;
 
@@ -46,29 +47,30 @@ public class PlayerShot : MonoBehaviour
 
     void Update()
     {
-        if (currentShotCount > 0 && Input.GetButton("LeftShot") && leftDelay == 0)
-        {
-            
-            EventCenter.ContextEvent.Invoke(ContextType.Shot);
-            SpawnBullet(leftShootPoint);
-            leftDelay = shotDelay;
-        }
-        else if (currentShotCount <1)
-        {
-            currentShotCount = 0;
-        }
-        
-        if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
-        {
-            
-            EventCenter.ContextEvent.Invoke(ContextType.Shot);
-            SpawnBullet(rightShootPoint);
-            rightDelay = shotDelay;
-        }
-        else if (currentShotCount <1)
-        {
-            currentShotCount = 0;
-        }
+        Fire();
+        //if (currentShotCount > 0 && Input.GetButton("LeftShot") && leftDelay == 0)
+        //{
+
+        //    EventCenter.ContextEvent.Invoke(ContextType.Shot);
+        //    SpawnBullet(leftShootPoint);
+        //    leftDelay = shotDelay;
+        //}
+        //else if (currentShotCount <1)
+        //{
+        //    currentShotCount = 0;
+        //}
+
+        //if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
+        //{
+
+        //    EventCenter.ContextEvent.Invoke(ContextType.Shot);
+        //    SpawnBullet(rightShootPoint);
+        //    rightDelay = shotDelay;
+        //}
+        //else if (currentShotCount <1)
+        //{
+        //    currentShotCount = 0;
+        //}
 
         if (leftDelay > 0)
         {
@@ -88,7 +90,38 @@ public class PlayerShot : MonoBehaviour
             rightDelay = 0;
         }
     }
+    public void Fire()
+    {
+        if (currentShotCount > 0 && fire && leftDelay == 0)
+        {
+            if (lfire)
+            {
+                lfire = false;
+                EventCenter.ContextEvent.Invoke(ContextType.Shot);
+                SpawnBullet(leftShootPoint);
+            }
+            else
+            {
+                lfire = true;
+                EventCenter.ContextEvent.Invoke(ContextType.Shot);
+                SpawnBullet(rightShootPoint);
+            }
+            leftDelay = shotDelay;
 
+
+        }
+        else if (currentShotCount < 1)
+        {
+            currentShotCount = 0;
+        }
+    }
+
+    private bool fire = false;
+    private bool lfire = false;
+    public void OnFire1(InputAction.CallbackContext value)
+    {
+        fire = value.ReadValueAsButton();
+    }
     private void SpawnBullet(Transform origin)
     {
         currentShotCount--;

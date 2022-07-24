@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
 public class GameControll : MonoBehaviour
@@ -9,8 +10,8 @@ public class GameControll : MonoBehaviour
     private Text scoreText;
 
     [SerializeField]
-    private GameObject pausePanel; 
-    
+    private GameObject pausePanel;
+
     [SerializeField]
     private GameObject nighTalesButton;
 
@@ -52,7 +53,7 @@ public class GameControll : MonoBehaviour
 
     private void Update()
     {
-        PausePanelToggle();
+        //PausePanelToggle();
     }
 
     public void ShowFinalPanel(int score, bool dead)
@@ -60,7 +61,7 @@ public class GameControll : MonoBehaviour
         scoreText.text = score.ToString();
         finalPanel.SetActive(true);
         nighTalesButton.SetActive(true);
-        if(dead)
+        if (dead)
         {
             deadAudioSource.Play();
             deadMarker.SetActive(true);
@@ -78,9 +79,36 @@ public class GameControll : MonoBehaviour
 
     private void PausePanelToggle()
     {
-        if(Input.GetButtonDown("Cancel") && !finalPanel.activeSelf)
+        if (Input.GetButtonDown("Cancel") && !finalPanel.activeSelf)
         {
-            if(pausePanel.activeSelf)
+            if (pausePanel.activeSelf)
+            {
+                pausePanel.SetActive(false);
+                nighTalesButton.SetActive(false);
+                musicAudioSource.UnPause();
+                GameTime.Pause = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                pausePanel.SetActive(true);
+                nighTalesButton.SetActive(true);
+                SetSelectedUI(startPausePanelSelectedObject);
+                musicAudioSource.Pause();
+                GameTime.Pause = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+    }
+
+    public void OnMenu(InputAction.CallbackContext value)
+    {
+
+        if (value.ReadValueAsButton() && !finalPanel.activeSelf)
+        {
+            if (pausePanel.activeSelf)
             {
                 pausePanel.SetActive(false);
                 nighTalesButton.SetActive(false);

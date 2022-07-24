@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerLaser : MonoBehaviour
@@ -22,11 +23,13 @@ public class PlayerLaser : MonoBehaviour
 
     [SerializeField]
     private Transform targetPoint;
-    
+
     [SerializeField]
     private Transform contextPanel;
-    
+
     private RaycastHit2D hit;
+
+    private bool lazerOn = false;
 
     private void Start()
     {
@@ -36,7 +39,7 @@ public class PlayerLaser : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButton("Laser") && laserEnergyValue.value > 0)
+        if (lazerOn && laserEnergyValue.value > 0)
         {
             EventCenter.ContextEvent.Invoke(ContextType.Laser);
             Ray();
@@ -47,9 +50,15 @@ public class PlayerLaser : MonoBehaviour
         }
     }
 
+    public void OnFire3(InputAction.CallbackContext value)
+    {
+        lazerOn = value.ReadValueAsButton();
+    }
+
+
     public void AddPower()
     {
-        if (contextPanel!=null)
+        if (contextPanel != null)
         {
             contextPanel.gameObject.SetActive(true);
         }

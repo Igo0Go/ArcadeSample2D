@@ -2,15 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
 {
     #region Доступные в редакторе поля
 
-    [SerializeField]                                            //Отрисовать в редакторе
-    [Range(1, 10)]                                               //Сделать ползунок
-    [Tooltip("Скорость перемещения звездолёта игрока")]         //Сделать всплывающую подсказку
+    [SerializeField]
+    private InputActionAsset starShipInputActionAsset;
+    private InputActionMap playerActionMap;
+    private InputAction changeMoveAction;
+
+    [SerializeField]
+    [Range(1, 10)]
+    [Tooltip("Скорость перемещения звездолёта игрока")]
     private float speed = 1;
 
     [Range(0,1)]
@@ -47,26 +53,43 @@ public class PlayerMoveControl : MonoBehaviour
     #endregion
 
     #region Обработка событий Unity
-    void Start()
+    void Awake()
     {
         rb2D = GetComponent<Rigidbody2D>();
         myTransform = transform;
         moveVector = Vector2.zero;
         useInertion = true;
+
+        playerActionMap = starShipInputActionAsset.FindActionMap("Player");
+        changeMoveAction = playerActionMap.FindAction("ChangeMove");
+        changeMoveAction.performed += context => ChangeControl();
+    }
+
+    private void OnEnable()
+    {
+        changeMoveAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        changeMoveAction.Disable();
     }
 
     void Update()
     {
         Move();
-        ChangeControl();
     }
     #endregion
 
+    private void OnMove(InputValue inputValue)
+    {
+        Vector2 inputVector = inputValue.Get<Vector2>();
+        x = inputVector.x;
+        y = inputVector.y;
+    }
+
     private void Move()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-
         if (x != 0 || y != 0)
         {
             EventCenter.ContextEvent.Invoke(ContextType.Movement);
@@ -102,19 +125,17 @@ public class PlayerMoveControl : MonoBehaviour
     }
     private void ChangeControl()
     {
-        if(Input.GetButtonDown("ChangeControl"))
+
+        useInertion = !useInertion;
+        EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
+        if (useInertion)
         {
-            useInertion = !useInertion;
-            EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
-            if(useInertion)
-            {
-                rb2D.velocity = moveVector;
-            }
-            else
-            {
-                rb2D.velocity = Vector2.zero;
-                rbVelocityChanged?.Invoke(0);
-            }
+            rb2D.velocity = moveVector;
+        }
+        else
+        {
+            rb2D.velocity = Vector2.zero;
+            rbVelocityChanged?.Invoke(0);
         }
     }
 

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerLaser : MonoBehaviour
 {
-
     [SerializeField]
     private Slider laserEnergyValue;
 
@@ -25,18 +25,41 @@ public class PlayerLaser : MonoBehaviour
     
     [SerializeField]
     private Transform contextPanel;
-    
+
     private RaycastHit2D hit;
 
-    private void Start()
+    private bool useLaser;
+
+    [SerializeField]
+    private InputActionAsset starShipInputActionAsset;
+    private InputActionMap playerActionMap;
+    private InputAction laserShootAction;
+
+    void Awake()
     {
         laserEnergyValue.maxValue = maxPower;
-        laserEnergyValue.value = 0;
+        laserEnergyValue.value = 100;
+
+        playerActionMap = starShipInputActionAsset.FindActionMap("Player");
+
+        laserShootAction = playerActionMap.FindAction("Laser");
+        laserShootAction.started += context => SetActiveForLaser(true);
+        laserShootAction.canceled += context => SetActiveForLaser(false);
+    }
+
+    private void OnEnable()
+    {
+        laserShootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        laserShootAction.Disable();
     }
 
     private void Update()
     {
-        if(Input.GetButton("Laser") && laserEnergyValue.value > 0)
+        if(useLaser && laserEnergyValue.value > 0)
         {
             EventCenter.ContextEvent.Invoke(ContextType.Laser);
             Ray();
@@ -73,5 +96,10 @@ public class PlayerLaser : MonoBehaviour
         {
             targetPoint.position = transform.position + transform.up * 30;
         }
+    }
+
+    private void SetActiveForLaser(bool value)
+    {
+        useLaser = value;
     }
 }

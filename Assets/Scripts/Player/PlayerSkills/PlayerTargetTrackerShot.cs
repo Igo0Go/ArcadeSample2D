@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
@@ -36,26 +36,39 @@ public class PlayerTargetTrackerShot : MonoBehaviour
         bulletCountText.text = currentShotCount.ToString();
     }
 
-    private void Start()
+    [SerializeField]
+    private InputActionAsset starShipInputActionAsset;
+    private InputActionMap playerActionMap;
+    private InputAction targetTrackerShootAction;
+
+    void Awake()
     {
         source = GetComponent<AudioSource>();
+        playerActionMap = starShipInputActionAsset.FindActionMap("Player");
+
+        targetTrackerShootAction = playerActionMap.FindAction("TargetTrackingShoot");
+        targetTrackerShootAction.performed += context => SpawnBullet(transform);
     }
 
-    void Update()
+    private void OnEnable()
     {
-        if (Input.GetButtonDown("TargetTrackerShot") && currentShotCount > 0)
-        {
-            
-            EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
-            SpawnBullet(transform);
-        }
+        targetTrackerShootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        targetTrackerShootAction.Disable();
     }
 
     private void SpawnBullet(Transform origin)
     {
-        currentShotCount--;
-        bulletCountText.text = currentShotCount.ToString();
-        source.PlayOneShot(shotSounds[Random.Range(0, shotSounds.Count)]);
-        Instantiate(bulletPrefab, origin.position, origin.rotation);
+        if (currentShotCount > 0)
+        {
+            EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
+            currentShotCount--;
+            bulletCountText.text = currentShotCount.ToString();
+            source.PlayOneShot(shotSounds[Random.Range(0, shotSounds.Count)]);
+            Instantiate(bulletPrefab, origin.position, origin.rotation);
+        }
     }
 }

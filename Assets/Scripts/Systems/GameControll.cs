@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class GameControll : MonoBehaviour
 {
@@ -38,7 +39,12 @@ public class GameControll : MonoBehaviour
     [SerializeField]
     private WaveSystem waveSystem;
 
-    private void Awake()
+    [SerializeField]
+    private InputActionAsset starShipInputActionAsset;
+    private InputActionMap playerActionMap;
+    private InputAction menuToggleAction;
+
+    void Awake()
     {
         deadMarker.SetActive(false);
         winMarker.SetActive(false);
@@ -48,11 +54,21 @@ public class GameControll : MonoBehaviour
         GameTime.Pause = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        playerActionMap = starShipInputActionAsset.FindActionMap("Player");
+
+        menuToggleAction = playerActionMap.FindAction("Menu");
+        menuToggleAction.performed += context => PausePanelToggle();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        PausePanelToggle();
+        menuToggleAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        menuToggleAction.Disable();
     }
 
     public void ShowFinalPanel(int score, bool dead)
@@ -78,7 +94,7 @@ public class GameControll : MonoBehaviour
 
     private void PausePanelToggle()
     {
-        if(Input.GetButtonDown("Cancel") && !finalPanel.activeSelf)
+        if(!finalPanel.activeSelf)
         {
             if(pausePanel.activeSelf)
             {

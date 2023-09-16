@@ -1,11 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerShot : MonoBehaviour
 {
+
+
     [SerializeField] private GameObject bulletPrefab;
 
     [SerializeField] private List<AudioClip> shotSounds;
@@ -26,46 +29,59 @@ public class PlayerShot : MonoBehaviour
 
     private float leftDelay, rightDelay;
 
-    
+    private bool shootLeft;
+    private bool shootRight;
 
-    public void AddBullets()
-    {
-        if (contextPanel!=null)
-        {
-            contextPanel.gameObject.SetActive(true);
-        }
-        currentShotCount = maxShotCount;
-        bulletCountText.text = currentShotCount.ToString();
-    }
+    [SerializeField]
+    private InputActionAsset starShipInputActionAsset;
+    private InputActionMap playerActionMap;
+    private InputAction rightShootAction;
+    private InputAction leftShootAction;
 
-    private void Start()
+    void Awake()
     {
+        playerActionMap = starShipInputActionAsset.FindActionMap("Player");
+
+        rightShootAction = playerActionMap.FindAction("ShootRight");
+        rightShootAction.started += context => StartShoot(false);
+        rightShootAction.canceled += context => EndShoot(false);
+
+        leftShootAction = playerActionMap.FindAction("ShootLeft");
+        leftShootAction.started += context => StartShoot(true);
+        leftShootAction.canceled += context => EndShoot(true);
+
         source = GetComponent<AudioSource>();
         leftDelay = rightDelay = 0;
     }
 
     void Update()
     {
-        if (currentShotCount > 0 && Input.GetButton("LeftShot") && leftDelay == 0)
+        if (currentShotCount == 0)
         {
-            
-            EventCenter.ContextEvent.Invoke(ContextType.Shot);
-            SpawnBullet(leftShootPoint);
-            leftDelay = shotDelay;
+            return;
         }
-        else if (currentShotCount <1)
+
+        if (shootLeft)
         {
-            currentShotCount = 0;
+            if (currentShotCount > 0 && leftDelay == 0)
+            {
+                EventCenter.ContextEvent.Invoke(ContextType.Shot);
+                SpawnBullet(leftShootPoint);
+                leftDelay = shotDelay;
+            }
         }
-        
-        if (currentShotCount > 0 && Input.GetButton("RightShot") && rightDelay == 0)
+
+        if (shootRight)
         {
-            
-            EventCenter.ContextEvent.Invoke(ContextType.Shot);
-            SpawnBullet(rightShootPoint);
-            rightDelay = shotDelay;
+            if (currentShotCount > 0 && rightDelay == 0)
+            {
+                EventCenter.ContextEvent.Invoke(ContextType.Shot);
+                SpawnBullet(rightShootPoint);
+                rightDelay = shotDelay;
+            }
         }
-        else if (currentShotCount <1)
+
+        if (currentShotCount < 1)
         {
             currentShotCount = 0;
         }
@@ -87,6 +103,55 @@ public class PlayerShot : MonoBehaviour
         {
             rightDelay = 0;
         }
+    }
+
+    private void OnEnable()
+    {
+        rightShootAction.Enable();
+        leftShootAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        rightShootAction.Disable();
+        leftShootAction.Disable();
+    }
+
+    public void AddBullets()
+    {
+        if (contextPanel!=null)
+        {
+            contextPanel.gameObject.SetActive(true);
+        }
+        currentShotCount = maxShotCount;
+        bulletCountText.text = currentShotCount.ToString();
+    }
+
+    private void StartShoot(bool left)
+    {
+        if(left)
+        {
+            shootLeft = true;
+        }
+        else
+        {
+            shootRight = true;
+        }
+    }
+
+    private void EndShoot(bool left)
+    {
+        if (left)
+        {
+            shootLeft = false;
+            leftDelay = 0;
+        }
+        else
+        {
+            shootRight = false;
+            rightDelay = 0;
+        }
+
     }
 
     private void SpawnBullet(Transform origin)

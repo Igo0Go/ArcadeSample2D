@@ -2503,11 +2503,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 759679821351394853, guid: 63f0a1e33bc032e459cdffc66fcb1d83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.18
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759679821351394853, guid: 63f0a1e33bc032e459cdffc66fcb1d83, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 759679821351394854, guid: 63f0a1e33bc032e459cdffc66fcb1d83, type: 3}
       propertyPath: m_IsActive
@@ -2678,6 +2678,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.2000122
       objectReference: {fileID: 0}
+    - target: {fileID: 1612928477679100189, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.19998169
+      objectReference: {fileID: 0}
     - target: {fileID: 1612928477679510097, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2754,6 +2758,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.19998169
       objectReference: {fileID: 0}
+    - target: {fileID: 1612928478561594561, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.19999695
+      objectReference: {fileID: 0}
     - target: {fileID: 1612928478648376129, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -2782,6 +2790,10 @@ PrefabInstance:
       propertyPath: musicAudioSource
       value: 
       objectReference: {fileID: 1680984772}
+    - target: {fileID: 1612928478648376130, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
+      propertyPath: starShipInputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a952b72be247a7c4ca8d07795609fb03, type: 3}
     - target: {fileID: 1612928478648376130, guid: b88928f29df694047aecc8dcd1d8baff, type: 3}
       propertyPath: startDeadPanelSelectedObject
       value: 
@@ -3038,6 +3050,14 @@ PrefabInstance:
       propertyPath: bulletCountText
       value: 
       objectReference: {fileID: 1873475978}
+    - target: {fileID: 744891166, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: currentShotCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 744891166, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: starShipInputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a952b72be247a7c4ca8d07795609fb03, type: 3}
     - target: {fileID: 744891167, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: contextPanel
       value: 
@@ -3046,6 +3066,10 @@ PrefabInstance:
       propertyPath: laserEnergyValue
       value: 
       objectReference: {fileID: 1268889533}
+    - target: {fileID: 744891167, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: starShipInputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a952b72be247a7c4ca8d07795609fb03, type: 3}
     - target: {fileID: 778239941, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -3066,6 +3090,14 @@ PrefabInstance:
       propertyPath: bulletCountText
       value: 
       objectReference: {fileID: 623391143}
+    - target: {fileID: 791755765, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: currentShotCount
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 791755765, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: starShipInputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a952b72be247a7c4ca8d07795609fb03, type: 3}
     - target: {fileID: 1350123016, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -3102,6 +3134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6788050959967119417, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: starShipInputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: a952b72be247a7c4ca8d07795609fb03, type: 3}
     - target: {fileID: 6788050959967119418, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3148,3 +3184,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+--- !u!1 &6788050961030188441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6788050959967119416, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+  m_PrefabInstance: {fileID: 6788050961030188440}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6788050961030188442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6788050961030188441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

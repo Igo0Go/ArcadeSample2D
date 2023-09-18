@@ -21,8 +21,6 @@ public class PlayerShot : MonoBehaviour
 
     [SerializeField] private Transform leftShootPoint;
     [SerializeField] private Transform rightShootPoint;
-    [SerializeField] private Transform contextPanel;
-
     [SerializeField] private Text bulletCountText;
 
     private AudioSource source;
@@ -119,10 +117,7 @@ public class PlayerShot : MonoBehaviour
 
     public void AddBullets()
     {
-        if (contextPanel!=null)
-        {
-            contextPanel.gameObject.SetActive(true);
-        }
+        EventCenter.ShowContextEvent.Invoke(ContextType.Shot);
         currentShotCount = maxShotCount;
         bulletCountText.text = currentShotCount.ToString();
     }

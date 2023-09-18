@@ -27,7 +27,8 @@ public class PlayerMoveControl : MonoBehaviour
     private bool useInertion = false;
 
     [SerializeField]
-    [Tooltip("Включить режим отладки скрипта для этого объекта. Будет отображаться вспомогательная отрисовка в окне сцены, а в консоль будут добаляться логи")]
+    [Tooltip("Включить режим отладки скрипта для этого объекта. " +
+        "Будет отображаться вспомогательная отрисовка в окне сцены, а в консоль будут добаляться логи")]
     private bool debug = false;
 
     #endregion

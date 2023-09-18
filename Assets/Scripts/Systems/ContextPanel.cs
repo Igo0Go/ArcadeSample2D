@@ -5,17 +5,21 @@ using UnityEngine.Events;
 
 public class ContextPanel : MonoBehaviour
 {
-    private Transform myTransform;
-    
-    
     public Transform PlayerTransform;
     public ContextType Type;
     public float DeathDelay = 1.5f;
 
-    void Start()
+    [SerializeField]
+    private List<GameObject> tooltipObjects;
+
+    private Transform myTransform;
+
+    void Awake()
     {
         myTransform = transform;
+        EventCenter.ShowContextEvent.AddListener(OnShowContextEvent);
         EventCenter.ContextEvent.AddListener(OnContextEvent);
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -24,6 +28,20 @@ public class ContextPanel : MonoBehaviour
         {
             myTransform.position = PlayerTransform.position;
         }
+    }
+
+    public void OnShowContextEvent(ContextType contextType)
+    {
+        if (contextType == Type)
+        {
+            ShowContext();
+        }
+    }
+
+    public void ShowContext()
+    {
+        gameObject.SetActive(true);
+        tooltipObjects[(int)SettingsPack.Tooltip].SetActive(true);
     }
 
     public void OnContextEvent(ContextType contextType)
@@ -37,10 +55,12 @@ public class ContextPanel : MonoBehaviour
 
 public static class EventCenter
 {
+    public static UnityEvent<ContextType> ShowContextEvent;
     public static UnityEvent<ContextType> ContextEvent;
 
     static EventCenter()
     {
+        ShowContextEvent = new UnityEvent<ContextType>();
         ContextEvent = new UnityEvent<ContextType>();
     }
 }
@@ -52,4 +72,16 @@ public enum ContextType
     Laser,
     Shot,
     TargetShot,
+}
+
+public enum TooltipType
+{
+    PS = 0,
+    XBOX = 1,
+    Keyboard = 2
+}
+
+public static class SettingsPack
+{
+    public static TooltipType Tooltip = TooltipType.Keyboard;
 }

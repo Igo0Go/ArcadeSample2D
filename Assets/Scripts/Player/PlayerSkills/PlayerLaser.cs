@@ -22,9 +22,6 @@ public class PlayerLaser : MonoBehaviour
 
     [SerializeField]
     private Transform targetPoint;
-    
-    [SerializeField]
-    private Transform contextPanel;
 
     private RaycastHit2D hit;
 
@@ -72,10 +69,7 @@ public class PlayerLaser : MonoBehaviour
 
     public void AddPower()
     {
-        if (contextPanel!=null)
-        {
-            contextPanel.gameObject.SetActive(true);
-        }
+        EventCenter.ShowContextEvent.Invoke(ContextType.Laser);
         laserEnergyValue.value = laserEnergyValue.maxValue;
     }
 

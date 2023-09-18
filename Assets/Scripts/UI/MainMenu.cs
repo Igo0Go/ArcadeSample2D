@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
 
         if (value )
         {
-            toolTipButtons[0].Select();
+            toolTipButtons[(int)SettingsPack.Tooltip].Select();
         }
         else
         {
@@ -41,6 +41,6 @@ public class MainMenu : MonoBehaviour
 
     public void SetToolTipType(int type)
     {
-
+        SettingsPack.Tooltip = (TooltipType)type;
     }
 }

@@ -35,7 +35,7 @@ public class PlayerLaser : MonoBehaviour
     void Awake()
     {
         laserEnergyValue.maxValue = maxPower;
-        laserEnergyValue.value = 100;
+        laserEnergyValue.value = 0;
 
         playerActionMap = starShipInputActionAsset.FindActionMap("Player");
 
@@ -54,15 +54,23 @@ public class PlayerLaser : MonoBehaviour
         laserShootAction.Disable();
     }
 
+    private float vibrationLevel = 0;
     private void Update()
     {
         if(useLaser && laserEnergyValue.value > 0)
         {
+            if(Gamepad.current != null)
+            {
+                vibrationLevel += Time.deltaTime/2;
+                Gamepad.current.SetMotorSpeeds(vibrationLevel, vibrationLevel);
+            }
             EventCenter.ContextEvent.Invoke(ContextType.Laser);
             Ray();
         }
         else
         {
+            vibrationLevel = 0;
+            Gamepad.current.SetMotorSpeeds(vibrationLevel, vibrationLevel);
             targetPoint.position = transform.position;
         }
     }

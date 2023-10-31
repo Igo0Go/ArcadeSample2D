@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.UI.Image;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerTargetTrackerShot : MonoBehaviour
@@ -20,9 +22,7 @@ public class PlayerTargetTrackerShot : MonoBehaviour
 
     [SerializeField]
     private Text bulletCountText;
-    
 
-    
     private AudioSource source;
 
     public void AddBullets()
@@ -60,11 +60,39 @@ public class PlayerTargetTrackerShot : MonoBehaviour
     {
         if (currentShotCount > 0)
         {
+            if(vibrationRate == 0)
+            {
+                StartCoroutine(RumbleCoroutine());
+            }
+            vibrationRate = 0.3f;
+
             EventCenter.ContextEvent.Invoke(ContextType.TargetShot);
             currentShotCount--;
             bulletCountText.text = currentShotCount.ToString();
             source.PlayOneShot(shotSounds[Random.Range(0, shotSounds.Count)]);
             Instantiate(bulletPrefab, origin.position, origin.rotation);
         }
+    }
+
+    private float vibrationRate = 0;
+    private IEnumerator RumbleCoroutine()
+    {
+        vibrationRate = 0.3f;
+
+        while (vibrationRate > 0)
+        {
+            if (Gamepad.current != null)
+            {
+                Gamepad.current.SetMotorSpeeds(vibrationRate, vibrationRate);
+            }
+            vibrationRate -= Time.deltaTime;
+            yield return null;
+        }
+        vibrationRate = 0;
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(vibrationRate, vibrationRate);
+        }
+
     }
 }

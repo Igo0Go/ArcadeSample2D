@@ -4684,6 +4684,10 @@ PrefabInstance:
       propertyPath: outlineRenderer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1350123016, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6788050959967119416, guid: 9c8ac6228923f564b90bedf929a4428c, type: 3}
       propertyPath: m_Name
       value: Player

@@ -16,7 +16,11 @@ public class LaserRenderer : MonoBehaviour
 
     private void Start()
     {
-        centerRenderer.positionCount = outlineRenderer.positionCount = controlPoints.Count;
+        centerRenderer.positionCount = controlPoints.Count;
+        if(outlineRenderer != null)
+        {
+            outlineRenderer.positionCount = controlPoints.Count;
+        }
     }
 
     void Update()
@@ -29,21 +33,27 @@ public class LaserRenderer : MonoBehaviour
     {
         for (int i = 0; i < controlPoints.Count; i++)
         {
-            outlineRenderer.SetPosition(i, controlPoints[i].localPosition);
+            if (outlineRenderer != null)
+            {
+                outlineRenderer.SetPosition(i, controlPoints[i].localPosition);
+            }
             centerRenderer.SetPosition(i, controlPoints[i].localPosition);
         }
     }
 
     private void MoveTexture()
     {
-        textureOffset -= Time.deltaTime * textureOffsetSpeed;
-        if(textureOffset < -10)
+        if(outlineRenderer != null)
         {
-            textureOffset += 10;
-        }
-        for (int i = 0; i < outlineRenderer.sharedMaterials.Length; i++)
-        {
-            outlineRenderer.sharedMaterials[i].SetTextureOffset("_MainTex", new Vector2(textureOffset, 0));
+            textureOffset -= Time.deltaTime * textureOffsetSpeed;
+            if (textureOffset < -10)
+            {
+                textureOffset += 10;
+            }
+            for (int i = 0; i < outlineRenderer.sharedMaterials.Length; i++)
+            {
+                outlineRenderer.sharedMaterials[i].SetTextureOffset("_MainTex", new Vector2(textureOffset, 0));
+            }
         }
     }
 }

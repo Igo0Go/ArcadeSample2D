@@ -80,8 +80,3 @@ public enum TooltipType
     XBOX = 1,
     Keyboard = 2
 }
-
-public static class SettingsPack
-{
-    public static TooltipType Tooltip = TooltipType.Keyboard;
-}

@@ -30,6 +30,15 @@ public class PlayerMoveControl : MonoBehaviour
         "Ѕудет отображатьс€ вспомогательна€ отрисовка в окне сцены, а в консоль будут добал€тьс€ логи")]
     private bool debug = false;
 
+    [SerializeField]
+    private Transform xDebugPoint;
+    [SerializeField]
+    private Transform yDebugPoint;
+    [SerializeField]
+    private Transform normolizeDebugPoint;
+    [SerializeField]
+    private Transform debugOrigin;
+
     #endregion
 
     #region недоступные в редакторе публичные пол€
@@ -47,9 +56,6 @@ public class PlayerMoveControl : MonoBehaviour
     private Transform myTransform;
     private float x, y;
     private const float inertionMultiplicator = 50;
-
-    Vector3 debugVector;
-
     #endregion
 
     #region ќбработка событий Unity
@@ -98,15 +104,21 @@ public class PlayerMoveControl : MonoBehaviour
         if (x != 0 || y != 0)
         {
             EventCenter.ContextEvent.Invoke(ContextType.Movement);
-            moveVector = new Vector2(x, y);
-            moveVector.Normalize();
 
-            if (debug)
+            if(SettingsPack.useDebug)
             {
-                debugVector = moveVector;
-                Debug.Log("“екуший вектор движени€ игрока: " + debugVector +
-                    ". ≈го длина: " + debugVector.magnitude);
+                x = Input.GetAxis("Horizontal");
+                y = Input.GetAxis("Vertical");
             }
+
+            moveVector = new Vector2(x, y);
+
+            if(SettingsPack.useNormolize)
+            {
+                moveVector.Normalize();
+            }
+
+            DrawDebug();
 
             moveVector *= speed;
             moveVector *= GameTime.DeltaTime;
@@ -125,7 +137,7 @@ public class PlayerMoveControl : MonoBehaviour
         }
         else
         {
-            debugVector = Vector3.zero;
+            DrawDebug();
         }
     }
     private void ChangeControl(InputAction.CallbackContext context)
@@ -143,21 +155,14 @@ public class PlayerMoveControl : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    private void DrawDebug()
     {
-        if(debug)
+        if (SettingsPack.useDebug)
         {
-            Gizmos.color = Color.white;
-            Gizmos.DrawWireSphere(transform.position, 1);
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, Vector3.up * debugVector.y);
-            Gizmos.DrawSphere(transform.position + Vector3.up * debugVector.y, 0.1f);
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, Vector3.right * debugVector.x);
-            Gizmos.DrawSphere(transform.position + Vector3.right * debugVector.x, 0.1f);
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawRay(transform.position, moveVector);
-            Gizmos.DrawSphere(transform.position + debugVector, 0.1f);
+            debugOrigin.rotation = Quaternion.identity;
+            xDebugPoint.localPosition = Vector3.right * moveVector.x;
+            yDebugPoint.localPosition = Vector3.up * moveVector.y;
+            normolizeDebugPoint.localPosition = moveVector;
         }
     }
 }

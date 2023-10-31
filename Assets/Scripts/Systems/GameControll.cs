@@ -44,6 +44,17 @@ public class GameControll : MonoBehaviour
     private InputActionMap playerActionMap;
     private InputAction menuToggleAction;
 
+    [SerializeField]
+    private GameObject debugPanel;
+    [SerializeField]
+    private GameObject playerDebug;
+
+    [SerializeField]
+    private Toggle debugToggle;
+
+    [SerializeField]
+    private Toggle normolizeToggle;
+
     void Awake()
     {
         deadMarker.SetActive(false);
@@ -54,6 +65,12 @@ public class GameControll : MonoBehaviour
         GameTime.Pause = false;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        debugToggle.isOn = SettingsPack.useDebug;
+        playerDebug.SetActive(SettingsPack.useDebug);
+        debugPanel.SetActive(SettingsPack.useDebug);
+        normolizeToggle.isOn = SettingsPack.useNormolize;
+
 
         playerActionMap = starShipInputActionAsset.FindActionMap("Player");
 
@@ -130,7 +147,7 @@ public class GameControll : MonoBehaviour
 
     public void ExitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
 
     private void SetSelectedUI(GameObject UIgameObject)
@@ -138,4 +155,25 @@ public class GameControll : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(UIgameObject);
     }
+
+    public void OnChangeUseDebug()
+    {
+        SettingsPack.useDebug = debugToggle.isOn;
+        playerDebug.SetActive(debugToggle.isOn);
+        debugPanel.SetActive(debugToggle.isOn);
+    }
+
+    public void OnChangeUseNormolize()
+    {
+        SettingsPack.useNormolize = normolizeToggle.isOn;
+    }
+}
+
+public static class SettingsPack
+{
+    public static TooltipType Tooltip = TooltipType.Keyboard;
+
+    public static bool useDebug = false;
+
+    public static bool useNormolize = false;
 }

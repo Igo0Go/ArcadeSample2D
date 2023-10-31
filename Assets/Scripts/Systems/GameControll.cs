@@ -58,7 +58,7 @@ public class GameControll : MonoBehaviour
         playerActionMap = starShipInputActionAsset.FindActionMap("Player");
 
         menuToggleAction = playerActionMap.FindAction("Menu");
-        menuToggleAction.performed += context => PausePanelToggle();
+        menuToggleAction.performed += PausePanelToggle;
     }
 
     private void OnEnable()
@@ -69,6 +69,11 @@ public class GameControll : MonoBehaviour
     private void OnDisable()
     {
         menuToggleAction.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        menuToggleAction.performed -= PausePanelToggle;
     }
 
     public void ShowFinalPanel(int score, bool dead)
@@ -92,7 +97,7 @@ public class GameControll : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void PausePanelToggle()
+    private void PausePanelToggle(InputAction.CallbackContext context)
     {
         if(!finalPanel.activeSelf)
         {

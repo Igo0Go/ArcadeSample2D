@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMoveControl : MonoBehaviour
 {
     #region Доступные в редакторе поля
@@ -63,7 +62,12 @@ public class PlayerMoveControl : MonoBehaviour
 
         playerActionMap = starShipInputActionAsset.FindActionMap("Player");
         changeMoveAction = playerActionMap.FindAction("ChangeMove");
-        changeMoveAction.performed += context => ChangeControl();
+        changeMoveAction.performed += ChangeControl;
+    }
+
+    private void OnDestroy()
+    {
+        changeMoveAction.performed -= ChangeControl;
     }
 
     private void OnEnable()
@@ -124,9 +128,8 @@ public class PlayerMoveControl : MonoBehaviour
             debugVector = Vector3.zero;
         }
     }
-    private void ChangeControl()
+    private void ChangeControl(InputAction.CallbackContext context)
     {
-
         useInertion = !useInertion;
         EventCenter.ContextEvent.Invoke(ContextType.MovingStyle);
         if (useInertion)
